@@ -1,0 +1,12 @@
+# full app
+/.yezi
+# Cargo lock file
+Cargo.lock
+# tui log
+yezi-*.log
+# dev tool
+dev
+# build outputs
+/target
+# For windows
+dev.exe

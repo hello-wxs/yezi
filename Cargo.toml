@@ -1,0 +1,42 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/yezi",
+    "crates/yezi-data",
+    "crates/yezi-tui",
+    "crates/yezi-dbg",
+    "crates/yezi-dev",
+    "crates/yezi-buddy",
+]
+
+[workspace.package]
+version = "0.1.0"
+readme = "README.md"
+edition = "2024"
+authors = [ "hello_wxs <hello_wxs@zohomail.com>" ]
+description = "a lightweight and cross-platform tool"
+license = "GPL-3.0-or-later"
+repository = "https://atomgit.com/hello_wxs/yezi"
+
+[workspace.dependencies]
+yezi-data = { version = "0.1.0", path = "crates/yezi-data" }
+yezi-buddy = { version = "0.1.0", path = "crates/yezi-buddy" }
+yezi-cfg = { version = "0.1.0", path = "crates/yezi-cfg" }
+
+ratatui-core = "0.1"
+etcetera = "0.11.0"
+serde = {version = "1.0", features = ["derive"]}
+ron = "0.12"
+thiserror = "2.0"
+anyhow = { version = "1.0", features = ["backtrace"] }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+
+[workspace.metadata.mdbook]
+targets = [
+    "docs/en",
+    "docs/zh_cn"
+]

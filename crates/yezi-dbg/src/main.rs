@@ -1,0 +1,13 @@
+// Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! Test crate
+
+#[allow(unused_imports)]
+use yezi_buddy as buddy;
+#[allow(unused_imports)]
+use yezi_cfg as cfg;
+#[allow(unused_imports)]
+use yezi_data as data;
+
+fn main() {}

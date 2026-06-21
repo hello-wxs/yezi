@@ -1,0 +1,15 @@
+[package]
+name = "yezi-cfg"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde = {workspace = true}
+ron = {workspace = true}
+thiserror = {workspace = true}
+ratatui-core = {workspace = true, features = ["serde"]}

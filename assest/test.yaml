@@ -1,0 +1,21 @@
+name: test
+description: A test YAML
+books:
+- name: animal
+  description: The book about animals
+  entries:
+  - key: cow
+    value: 牛
+    tip: It eats grass
+  - key: frog
+    value: 青蛙
+    tip: It eats flies
+- name: Food
+  description: The book about food
+  entries:
+  - key: apple
+    value: 苹果
+    tip: The fruit that keeps doctors away
+  - key: banana
+    value: 香蕉
+    tip: The yellow fruit
