@@ -6,4 +6,4 @@
 
 This crate is part of [yezi][source], and it is not supposed to be used outside, as there are no guarantees about the stability of its API.
 
-[source]: https://gitcode.com/hello_wxs/yezi
+[source]: https://codeberg.org/hello_wxs/yezi
