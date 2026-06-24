@@ -17,7 +17,7 @@ fn main() {
         std::io::stdout().flush().unwrap();
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).unwrap();
-        
+
         if input.trim() != "Y" && input.trim() != "y" {
             return;
         }

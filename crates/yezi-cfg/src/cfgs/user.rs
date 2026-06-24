@@ -3,8 +3,11 @@
 
 use serde::Deserialize;
 
+/// User configuration.
 #[derive(Debug, Deserialize, Default, Clone)]
 pub struct User {
+    /// User name.
     pub name: Option<String>,
+    /// User introduction.
     pub intro: Option<String>,
 }
