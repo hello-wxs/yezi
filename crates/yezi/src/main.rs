@@ -1,6 +1,9 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#![doc = include_str!("../README.md")]
+
+
 fn main() {
     let self_path = std::env::current_exe().unwrap();
     let bin_path = self_path.parent().unwrap();

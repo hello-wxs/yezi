@@ -103,7 +103,7 @@ impl Buddy {
     ///
     /// * `user_name` - The user's name used to seed the random number generator.
     /// * `buddy_name` - The name of the buddy, if provided. Otherwise, a random name is chosen from the assests.
-    /// 
+    ///
     /// # Examples
     ///
     /// ```
@@ -128,10 +128,10 @@ impl Buddy {
                 rng.next_u64() % 64 == 0,
             )
         };
-        
+
         // Make rng randomly
         let mut rng = rand_pcg::Pcg64::from_seed(rand::random());
-        
+
         // Create a new Buddy
         Self {
             name: buddy_name.unwrap_or(assest.name.to_string()),

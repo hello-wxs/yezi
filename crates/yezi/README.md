@@ -10,13 +10,3 @@
 </div>
 
 Yezi is a **terminal entries manager written in Rust**, based on asynchronous I/O construction. It aims to provide an **efficient, user-friendly, and lightning** entries management experience. It have **Vim-like** input/pick/confirm component.
-
-# Documentation
-The documentation is [HERE](docs/en). If you want to see it rendered, you can use mdbook to build it locally.
-```shell
-cd docs/en
-mdbook build
-```
-
-## License
-This project is licensed under the **GNU General Public License v3.0 or later** - see the **[LICENSE.md](LICENSE.md)** for details.

@@ -1,7 +1,7 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-//! yezi-data crate, manage the data for yezi application
+#![doc = include_str!("../README.md")]
 
 pub mod state;
 pub use state::*;

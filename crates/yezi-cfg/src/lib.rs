@@ -1,7 +1,7 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-//! The yezi-cfg crate provides configuration management for the yezi project.
+#![doc = include_str!("../README.md")]
 
 pub mod cfgs;
 pub mod error;
