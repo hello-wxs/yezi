@@ -1,7 +1,7 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-//! TUI page entrance
+#![doc = include_str!("../README.md")]
 
 mod app;
 mod cfg;

@@ -7,7 +7,7 @@
 [![VERSION: 0.1.0](https://img.shields.io/badge/version-0.1.0-fedcba.svg)]()
 [![AUTHOR: hello_wxs](https://img.shields.io/badge/author-hello_wxs-white.svg)]()
 
-[en](README.md) | [简体中文](README-zh_cn.md)
+[en](https://codeberg.org/hello_wxs/yezi/src/branch/main/README.md) | [简体中文](https://codeberg.org/hello_wxs/yezi/src/branch/main/README-zh_cn.md)
 </div>
 
 Yezi is a **terminal entries manager written in Rust**, based on asynchronous I/O construction. It aims to provide an **efficient, user-friendly, and lightning** entries management experience. It have **Vim-like** input/pick/confirm component.
@@ -17,6 +17,10 @@ The documentation is [HERE](docs/en). If you want to see it rendered, you can us
 ```shell
 cd docs/en
 mdbook build
+```
+By the way, if you have `cargo-mdbook`(my another project), you can use it more easily. **:)** 
+```shell
+cargo mdbook build
 ```
 
 ## License

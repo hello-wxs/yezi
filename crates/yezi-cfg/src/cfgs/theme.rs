@@ -3,9 +3,12 @@
 
 use serde::Deserialize;
 
+/// Theme configuration.
 #[derive(Debug, Deserialize, Clone)]
 pub struct Theme {
+    /// Background color.
     pub bg: ratatui_core::style::Color,
+    /// Foreground color.
     pub fg: Font,
 }
 
@@ -18,12 +21,18 @@ impl Default for Theme {
     }
 }
 
+/// Font configuration.
 #[derive(Debug, Deserialize, Clone)]
 pub struct Font {
+    /// Error color.
     pub err: ratatui_core::style::Color,
+    /// Warning color.
     pub warn: ratatui_core::style::Color,
+    /// Important color.
     pub important: ratatui_core::style::Color,
+    /// Common color.
     pub common: ratatui_core::style::Color,
+    /// Less color.
     pub less: ratatui_core::style::Color,
 }
 
