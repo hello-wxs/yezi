@@ -7,7 +7,7 @@
 [![版本: 0.1.0](https://img.shields.io/badge/version-0.1.0-fedcba.svg)]()
 [![作者: hello_wxs](https://img.shields.io/badge/author-hello_wxs-white.svg)]()
 
-[en](README.md) | [简体中文](README-zh_cn.md)
+[en](https://codeberg.org/hello_wxs/yezi/src/branch/main/README.md) | [简体中文](https://codeberg.org/hello_wxs/yezi/src/branch/main/README-zh_cn.md)
 </div>
 
 Yezi 是一款**使用 Rust 编写的终端条目管理器**，基于异步 I/O 构建。它旨在提供一个**高效、用户友好且极速**的条目管理体验。它具有 **Vim 风格**的输入/选择/确认组件。
@@ -17,6 +17,10 @@ Yezi 是一款**使用 Rust 编写的终端条目管理器**，基于异步 I/O 
 ```shell
 cd docs/zh_cn
 mdbook build
+```
+另外，如果你有 `cargo-mdbook`（我的另一个项目），你可以使用它更方便地构建文档： **:)**
+```shell
+cargo mdbook build
 ```
 
 ## 许可证
