@@ -3,11 +3,9 @@
 
 #![doc = include_str!("../README.md")]
 
-#[allow(unused_imports)]
+#![allow(unused_imports)]
 use yezi_buddy as buddy;
-#[allow(unused_imports)]
 use yezi_cfg as cfg;
-#[allow(unused_imports)]
 use yezi_data as data;
 
 fn main() {}
