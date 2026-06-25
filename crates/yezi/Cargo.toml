@@ -13,7 +13,7 @@ anyhow = { workspace = true }
 yezi-tui = { workspace = true }
 
 [features]
-default = ["dev"]
+default = ["install"]
 dev = ["yezi-tui/dev"]
 portable = ["yezi-tui/portable"]
 install = ["yezi-tui/install"]

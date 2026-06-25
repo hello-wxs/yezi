@@ -7,6 +7,7 @@
 [![AUTHOR: hello_wxs](https://img.shields.io/badge/author-hello_wxs-white.svg)]()
 
 The `yezi-tui` crate is the UI for the `yezi` terminal entries manager.
-I use `yezi` crate to manage and launch it.
 
 </div>
+
+The `yezi` crate use it to export the TUI interface.
