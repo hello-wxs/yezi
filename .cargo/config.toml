@@ -1,10 +1,8 @@
 [alias]
 md = ["mdbook", "build"]
-
-dbg = ["run",  "-p", "yezi-dbg"]
-tui = ["run", "-p", "yezi-tui", "--no-default-features", "--features", "dev"]
+do = ["run", "--features", "dev", "--no-default-features", "-p", "yezi"]
+dbg = ["run", "-p", "yezi-dbg"]
 dev = ["run", "-p", "yezi-dev", "--", "jump"]
-yezi = ["run", "-p", "yezi"]
 
 [build]
 rustdocflags = ["--document-private-items"]

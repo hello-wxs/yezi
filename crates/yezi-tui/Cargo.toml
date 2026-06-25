@@ -24,7 +24,6 @@ anyhow = { workspace = true }
 smol = "2.0"
 
 [features]
-default = ["install"]
 dev = []
 portable = []
 install = []

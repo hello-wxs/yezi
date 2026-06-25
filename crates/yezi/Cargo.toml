@@ -10,3 +10,10 @@ repository.workspace = true
 
 [dependencies]
 anyhow = { workspace = true }
+yezi-tui = { workspace = true }
+
+[features]
+default = ["install"]
+dev = ["yezi-tui/dev"]
+portable = ["yezi-tui/portable"]
+install = ["yezi-tui/install"]

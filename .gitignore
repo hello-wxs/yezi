@@ -8,5 +8,7 @@ yezi-*.log
 dev
 # build outputs
 /target
+# runtime outputs
+/runtime
 # For windows
 dev.exe
