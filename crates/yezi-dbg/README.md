@@ -2,9 +2,10 @@
 
 # yezi-dbg
 
-[![LICENSE: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](LICENSE.md)
-[![VERSION: 0.1.0](https://img.shields.io/badge/version-0.1.0-fedcba.svg)]()
-[![AUTHOR: hello_wxs](https://img.shields.io/badge/author-hello_wxs-white.svg)]()
+[![Version](https://img.shields.io/crates/v/yezi-dbg)](https://crates.io/crates/yezi-dbg)
+[![Downloads](https://img.shields.io/crates/d/yezi-dbg)](https://crates.io/crates/yezi-dbg)
+[![License](https://img.shields.io/crates/l/yezi-dbg)](https://codeberg.org/hello_wxs/yezi/src/branch/main/LICENSE.md)
+[![Author](https://img.shields.io/badge/author-hello_wxs-white.svg)](https://codeberg.org/hello_wxs)
 
 The `yezi-dbg` crate is a debugging tool for the `yezi` terminal entries manager.
 This crate shouldn't be published to crates.io.
