@@ -12,6 +12,9 @@ pub(crate) fn render(
     use ratatui::style::Stylize;
 
     let cfg = crate::get_config();
+
+    let area = area.inner(ratatui::layout::Margin::new(5, 0));
+
     let learn_state = &app_state
         .current_view
         .learn_state()
