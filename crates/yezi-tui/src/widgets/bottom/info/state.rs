@@ -9,10 +9,16 @@ pub(crate) fn render(
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
+
+    let show_saying = cfg.buddy.show
+        && cfg.user.name.is_some()
+        && area.width as usize
+            > get_location(app_state).len() + app_state.buddy.get_saying().len() + 2;
+
     let [location_area, buddy_saying_area] = ratatui::layout::Layout::horizontal([
         ratatui::layout::Constraint::Min(0),
-        if cfg.buddy.show && cfg.user.name.is_some() {
-            ratatui::layout::Constraint::Length(10)
+        if show_saying {
+            ratatui::layout::Constraint::Length(app_state.buddy.get_saying().len() as u16)
         } else {
             ratatui::layout::Constraint::Length(0)
         },

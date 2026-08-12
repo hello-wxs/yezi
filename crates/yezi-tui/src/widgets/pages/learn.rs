@@ -12,6 +12,9 @@ pub(crate) fn render(
     use ratatui::style::Stylize;
 
     let cfg = crate::get_config();
+
+    let area = area.inner(ratatui::layout::Margin::new(5, 0));
+
     let learn_state = &app_state
         .current_view
         .learn_state()
@@ -36,18 +39,26 @@ pub(crate) fn render(
         .alignment(ratatui::layout::Alignment::Center)
         .fg(cfg.theme.fg.less),
     ]);
+    let height = text
+        .iter()
+        .map(|line| {
+            (line.width() as u16)
+                .checked_div_ceil(area.width)
+                .unwrap_or_default()
+        })
+        .sum::<u16>();
+    let par = ratatui::widgets::Paragraph::new(text)
+        .alignment(ratatui::layout::Alignment::Center)
+        .wrap(ratatui::widgets::Wrap { trim: true });
     // Split area
     let [_, learn_area, _] = ratatui::layout::Layout::vertical([
         ratatui::layout::Constraint::Min(0),
-        ratatui::layout::Constraint::Length(text.iter().len().try_into().unwrap()),
+        ratatui::layout::Constraint::Length(height),
         ratatui::layout::Constraint::Min(0),
     ])
     .areas(area);
     // Render
-    f.render_widget(
-        ratatui::widgets::Paragraph::new(text).wrap(ratatui::widgets::Wrap { trim: true }),
-        learn_area,
-    );
+    f.render_widget(par, learn_area);
 }
 /// Handle learn page key events
 pub(crate) fn handle_key(
@@ -103,4 +114,19 @@ fn current_words(full: &str, len: usize) -> String {
     let show_part = full.chars().take(len).collect::<String>();
     show_part.clone()
         + &"_".repeat(full.width() - full.chars().take(len).collect::<String>().width())
+}
+
+trait CheckedDivCeil {
+    fn checked_div_ceil(self, other: Self) -> Option<Self>
+    where
+        Self: Sized;
+}
+
+impl CheckedDivCeil for u16 {
+    fn checked_div_ceil(self, other: Self) -> Option<u16> {
+        if other == 0 {
+            return None;
+        }
+        Some(self.div_ceil(other))
+    }
 }

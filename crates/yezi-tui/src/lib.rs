@@ -1,7 +1,7 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-//! TUI page entrance
+#![doc = include_str!("../README.md")]
 
 mod app;
 mod cfg;
@@ -12,7 +12,7 @@ mod terminal;
 mod widgets;
 pub(crate) use cfg::get_config;
 
-fn main() -> anyhow::Result<()> {
+pub fn run() -> anyhow::Result<()> {
     let mut app_state = state::AppState::new()?;
     logger::init_log(&app_state)?;
     cfg::load_config(&app_state.path.config_path.join("yezi-tui.ron"));

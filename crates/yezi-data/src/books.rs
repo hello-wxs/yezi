@@ -33,8 +33,11 @@ use serde::{Deserialize, Serialize};
 /// ```
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Book {
+    /// The name of the book.
     name: String,
+    /// The description of the book.
     description: String,
+    /// The entries of the book.
     entries: Vec<Entry>,
 }
 

@@ -36,9 +36,13 @@ use std::path::PathBuf;
 /// ```
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Lib {
+    /// The name of the lib.
     name: String,
+    /// The description of the lib.
     description: String,
+    /// The books of the lib.
     books: Vec<Book>,
+    /// Sign the file extension of the lib.
     #[serde(skip)]
     pub file_extension: FileExtension,
 }
@@ -158,7 +162,7 @@ impl Lib {
     }
 }
 impl Lib {
-    // Get the entry at the given book and entry idxes.
+    /// Get the entry at the given book and entry idxes.
     pub fn get_entries<I>(&self, book_idx: I) -> Option<&Vec<Entry>>
     where
         I: Into<usize>,
@@ -166,7 +170,7 @@ impl Lib {
         self.get_book(book_idx.into())
             .map(|book| book.get_entries())
     }
-    // Get a mutable reference to the entry at the given book and entry idxes.
+    /// Get a mutable reference to the entry at the given book and entry idxes.
     pub fn get_mut_entries<I>(&mut self, book_idx: I) -> Option<&mut Vec<Entry>>
     where
         I: Into<usize>,
@@ -227,11 +231,16 @@ impl Lib {
     }
 }
 
+/// The file extension of the lib.
 #[derive(Clone, Debug, Default)]
 pub enum FileExtension {
+    /// The TOML file extension.
     Toml,
+    /// The JSON file extension.
     Json,
+    /// The YAML file extension (default).
     #[default]
     Yaml,
+    /// The RON file extension.    
     Ron,
 }

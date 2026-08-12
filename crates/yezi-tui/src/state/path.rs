@@ -19,8 +19,8 @@ impl Path {
                     .parent()
                     .context("Path not found")?
                     .into(),
-                log_path: "./".into(),
-                config_path: "./assest".into(),
+                log_path: "./runtime/log".into(),
+                config_path: "./runtime/config".into(),
             })
         } else if cfg!(feature = "portable") {
             let exe_path = std::env::current_exe().context("Failed to get exe path")?;

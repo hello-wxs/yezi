@@ -5,6 +5,7 @@ use rand_pcg::rand_core::{Rng, SeedableRng};
 use sha2::Digest;
 
 /// The thinking state of the buddy.
+/// Decides the current thought of the buddy.
 #[derive(Debug)]
 enum Think {
     /// The main thinking state.
@@ -18,6 +19,7 @@ enum Think {
 }
 
 /// The idea struct representing the current state and sayings of the buddy.
+/// Includes the current thinking state and the index of the current saying, if any.
 #[derive(Debug)]
 struct Idea {
     /// The current thinking state of the buddy.
@@ -27,6 +29,7 @@ struct Idea {
 }
 
 /// Images struct holding the buddy's images.
+/// Stores the the main, dozy, hint, and taunt images.
 #[derive(Debug)]
 struct Images {
     /// The main image of the buddy.
@@ -40,6 +43,7 @@ struct Images {
 }
 
 /// Helper struct for holding the buddy's sayings.
+/// Stores the main, dozy, hint, and taunt sayings.
 #[derive(Debug)]
 struct Say {
     /// The main sayings of the buddy.
@@ -52,7 +56,8 @@ struct Say {
     taunt: Vec<String>,
 }
 
-/// Traits struct holding the buddy's traits.
+/// Holds the traits of the buddy.
+/// Stores the atience, wisdom, and sarcasm traits.
 #[derive(Debug)]
 struct Traits {
     /// The atience trait of the buddy.
@@ -98,8 +103,14 @@ impl Buddy {
     ///
     /// * `user_name` - The user's name used to seed the random number generator.
     /// * `buddy_name` - The name of the buddy, if provided. Otherwise, a random name is chosen from the assests.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let buddy = Buddy::new("user".to_string(), Some("Hei".to_string()), 60);
+    /// ```
     pub fn new(user_name: String, buddy_name: Option<String>, act_interval: u64) -> Self {
-        // Make rng from user_name
+        // Make buddy assest and shiny from user_name
         let (assest, shiny) = {
             let mut hasher = sha2::Sha256::new();
             hasher.update(
@@ -117,7 +128,10 @@ impl Buddy {
                 rng.next_u64() % 64 == 0,
             )
         };
+
+        // Make rng randomly
         let mut rng = rand_pcg::Pcg64::from_seed(rand::random());
+
         // Create a new Buddy
         Self {
             name: buddy_name.unwrap_or(assest.name.to_string()),
@@ -154,14 +168,14 @@ impl Buddy {
             rng,
         }
     }
-    /// Returns whether the buddy should act.
+    /// Check if the interval since the last tick has elapsed
     fn should_act(&self) -> Result<bool, std::time::SystemTimeError> {
         let current_time = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)?
             .as_secs();
         Ok(current_time - self.latest_act_time >= self.act_interval)
     }
-    /// Helper function for finishing the buddy's act.
+    /// Finishing the buddy's act.
     fn finish_act(&mut self) -> Result<(), std::time::SystemTimeError> {
         self.latest_act_time = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)?
@@ -169,6 +183,7 @@ impl Buddy {
         Ok(())
     }
     /// Change the saying of the buddy to a random one.
+    /// It has a 50% chance of setting `say` to `None`.
     fn change_say(&mut self) {
         if self.rng.next_u64().is_multiple_of(2) {
             self.idea.say = Some(self.rng.next_u64() as usize % self.say.main.len());

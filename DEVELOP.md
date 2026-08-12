@@ -12,14 +12,8 @@ cargo clippy
 
 ## Command alias
 
-This project set many alias for you to test it quickly. Here are the uese.
-
-1. `cargo dbg` -> `cargo run -p yezi-dbg`
-2. `cargo tui` -> `cargo run -p yezi-tui`
-3. `cargo dev` -> `cargo run -p yezi-dev -- jump`
-
-Besides, doc includes private items.
-
+This project set many alias for you to test it quickly.
+Here are the uses.
 Click [here](./.cargo/config.toml) for the primary file.
 
 ## Development tool in this project
@@ -28,4 +22,7 @@ You can see there is a crate named yezi-dev. It's a crate used for build test en
 
 ## The dbg crate
 
-The dbg crate is used to test the lib crate. Besides, **don't commit it**!!
+The dbg crate is used to test the lib crate.
+<p color="red">
+***DON'T COMMIT THE CHANGE OF IT!!***
+</p>

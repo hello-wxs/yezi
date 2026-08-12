@@ -36,8 +36,11 @@ use serde::{Deserialize, Serialize};
 /// ```
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Entry {
+    /// The key of the entry.
     key: String,
+    /// The value of the entry.
     value: String,
+    /// The tip of the entry.
     tip: String,
 }
 
