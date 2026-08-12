@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Content truncation of learning interface when displaying long paragraphs.
 - Bottom info layout overflow.
 
-## [0.1.0] - 2025-06-21
+## [0.1.0] - 2026-06-21
 
 ### Added
 - TUI (Terminal User Interface): Full-screen interactive terminal interface with real-time rendering.
