@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-08-12
+
 ### Added
 - Auto-resize bottom info and buddy image.
 
@@ -28,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 I appreciate freedom software lover and every contributor who has helped improve this project, whether through dependencies or tools.
 
-[Unreleased]: https://codeberg.org/hello_wxs/yezi/compare/v0.1.0...dev
+[Unreleased]: https://codeberg.org/hello_wxs/yezi/compare/v0.1.1...dev
+[0.1.1]: https://codeberg.org/hello_wxs/yezi/compare/v0.1.0...0.1.1
 [0.1.0]: https://codeberg.org/hello_wxs/yezi/releases/tag/v0.1.0
 [@hello_wxs]: https://codeberg.org/hello_wxs
