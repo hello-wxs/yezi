@@ -3,9 +3,10 @@
 # Yezi
 **极速终端词条学习 TUI 工具**
 
-[![许可证: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](LICENSE.md)
-[![版本: 0.1.0](https://img.shields.io/badge/version-0.1.0-fedcba.svg)]()
-[![作者: hello_wxs](https://img.shields.io/badge/author-hello_wxs-white.svg)]()
+[![版本](https://img.shields.io/crates/v/yezi)](https://crates.io/crates/yezi)
+[![下载量](https://img.shields.io/crates/d/yezi)](https://crates.io/crates/yezi)
+[![许可证](https://img.shields.io/crates/l/yezi)](https://codeberg.org/hello_wxs/yezi/src/branch/main/LICENSE.md)
+[![作者](https://img.shields.io/badge/author-hello_wxs-white.svg)](https://codeberg.org/hello_wxs)
 
 [en](https://codeberg.org/hello_wxs/yezi/src/branch/main/README.md) | [简体中文](https://codeberg.org/hello_wxs/yezi/src/branch/main/README-zh_cn.md)
 </div>
