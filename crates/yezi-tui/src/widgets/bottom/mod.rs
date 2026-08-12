@@ -10,9 +10,12 @@ pub(crate) fn render(
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
+
+    let show_buddy = cfg.user.name.is_some() && cfg.buddy.show && area.width > 32;
+
     let [info_area, buddy_area] = ratatui::layout::Layout::horizontal([
         ratatui::layout::Constraint::Min(0),
-        if cfg.user.name.is_some() && cfg.buddy.show {
+        if show_buddy {
             ratatui::layout::Constraint::Length(8)
         } else {
             ratatui::layout::Constraint::Length(0)
