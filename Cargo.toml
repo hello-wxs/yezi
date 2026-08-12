@@ -20,10 +20,10 @@ license = "GPL-3.0-or-later"
 repository = "https://codeberg.org/hello_wxs/yezi"
 
 [workspace.dependencies]
-yezi-tui = { version = "0.1.0", path = "crates/yezi-tui" }
-yezi-data = { version = "0.1.0", path = "crates/yezi-data" }
-yezi-buddy = { version = "0.1.0", path = "crates/yezi-buddy" }
-yezi-cfg = { version = "0.1.0", path = "crates/yezi-cfg" }
+yezi-tui = { version = "0.1.1", path = "crates/yezi-tui" }
+yezi-data = { version = "0.1.1", path = "crates/yezi-data" }
+yezi-buddy = { version = "0.1.1", path = "crates/yezi-buddy" }
+yezi-cfg = { version = "0.1.1", path = "crates/yezi-cfg" }
 
 ratatui-core = "0.1"
 etcetera = "0.11.0"
