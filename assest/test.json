@@ -1,17 +1,21 @@
 {
+  "id": "019ffb6b-67c7-7fd3-9b03-a6b27ee343f2",
   "name": "test",
   "description": "A test JSON",
   "books": [
     {
+      "id": "019ffb6b-67c7-7fd3-9b03-a692cee84d11",
       "name": "animal",
       "description": "The book about animals",
       "entries": [
         {
+          "id": "019ffb69-2090-78b0-a501-0fe07693b391",
           "key": "cow",
           "value": "牛",
           "tip": "It eats grass"
         },
         {
+          "id": "019ffb69-2090-78b0-a501-0ff9bdc42087",
           "key": "frog",
           "value": "青蛙",
           "tip": "It eats flies"
@@ -19,15 +23,18 @@
       ]
     },
     {
+      "id": "019ffb6b-67c7-7fd3-9b03-a6a536024aa8",
       "name": "Food",
       "description": "The book about food",
       "entries": [
         {
+          "id": "019ffb69-2090-78b0-a501-1002e8e13e6b",
           "key": "apple",
           "value": "苹果",
           "tip": "The fruit that keeps doctors away"
         },
         {
+          "id": "019ffb69-2090-78b0-a501-1018c2cd19de",
           "key": "banana",
           "value": "香蕉",
           "tip": "The yellow fruit"
