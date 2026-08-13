@@ -7,6 +7,7 @@ members = [
     "crates/yezi-dbg",
     "crates/yezi-dev",
     "crates/yezi-buddy",
+    "crates/yezi-db",
 ]
 default-members = ["crates/yezi"]
 
@@ -24,6 +25,7 @@ yezi-tui = { version = "0.1.1", path = "crates/yezi-tui", default-features = fal
 yezi-data = { version = "0.1.1", path = "crates/yezi-data" }
 yezi-buddy = { version = "0.1.1", path = "crates/yezi-buddy" }
 yezi-cfg = { version = "0.1.1", path = "crates/yezi-cfg" }
+yezi-db = { version = "0.1.1", path = "crates/yezi-db" }
 
 ratatui-core = "0.1"
 etcetera = "0.11.0"
@@ -32,6 +34,8 @@ ron = "0.12"
 thiserror = "2.0"
 anyhow = { version = "1.0", features = ["backtrace"] }
 uuid = { version = "1.24", features = ["v7", "serde"] }
+diesel = { version = "2.3", features = ["sqlite"] }
+libsqlite3-sys = { version = ">=0.2.5, <0.6.0", features = ["bundled"] }
 
 [profile.release]
 opt-level = 3
