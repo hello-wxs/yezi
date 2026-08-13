@@ -33,6 +33,9 @@ use serde::{Deserialize, Serialize};
 /// ```
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Book {
+    /// The unique identifier of the entry.
+    #[serde(default = "uuid::Uuid::now_v7")]
+    id: uuid::Uuid,
     /// The name of the book.
     name: String,
     /// The description of the book.
@@ -45,6 +48,7 @@ impl Book {
     /// Create a new book with the given name and description.
     pub fn new(name: String, description: String) -> Self {
         Self {
+            id: uuid::Uuid::now_v7(),
             name,
             description,
             entries: Vec::new(),

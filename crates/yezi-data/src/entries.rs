@@ -36,6 +36,9 @@ use serde::{Deserialize, Serialize};
 /// ```
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Entry {
+    /// The unique identifier of the entry.
+    #[serde(default = "uuid::Uuid::now_v7")]
+    id: uuid::Uuid,
     /// The key of the entry.
     key: String,
     /// The value of the entry.
@@ -47,7 +50,7 @@ pub struct Entry {
 impl Entry {
     /// Create a new entry with the given key, value, and tip.
     pub fn new(key: String, value: String, tip: String) -> Self {
-        Self { key, value, tip }
+        Self { id: uuid::Uuid::now_v7(), key, value, tip }
     }
     /// Get a reference to the entry's key.
     pub fn get_key(&self) -> &String {
