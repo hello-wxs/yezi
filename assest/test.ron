@@ -1,17 +1,21 @@
 (
+    id: "019ffb6b-1eb2-7123-8814-e6a5e9477db1",
     name: "test",
     description: "A test RON",
     books: [
         (
+            id: "019ffb6b-1eb2-7123-8814-e685cb98d426",
             name: "animal",
             description: "The book about animals",
             entries: [
                 (
+                    id: "019ffb68-fa2f-76e2-86c6-03b2eaec301f",
                     key: "cow",
                     value: "牛",
                     tip: "It eats grass",
                 ),
                 (
+                    id: "019ffb68-fa2f-76e2-86c6-03c39ec09958",
                     key: "frog",
                     value: "青蛙",
                     tip: "It eats flies",
@@ -19,15 +23,18 @@
             ],
         ),
         (
+            id: "019ffb6b-1eb2-7123-8814-e6987fb8207f",
             name: "Food",
             description: "The book about food",
             entries: [
                 (
+                    id: "019ffb68-fa2f-76e2-86c6-03d43f97bda9",
                     key: "apple",
                     value: "苹果",
                     tip: "The fruit that keeps doctors away",
                 ),
                 (
+                    id: "019ffb68-fa2f-76e2-86c6-03e45cdcc4b8",
                     key: "banana",
                     value: "香蕉",
                     tip: "The yellow fruit",

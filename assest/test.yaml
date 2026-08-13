@@ -1,21 +1,28 @@
+id: 019ffb6a-bfdf-73a3-ae8e-4798502c57ab
 name: test
 description: A test YAML
 books:
-- name: animal
+- id: 019ffb6a-bfdf-73a3-ae8e-477a8504abee
+  name: animal
   description: The book about animals
   entries:
-  - key: cow
+  - id: 019ffb68-625b-7402-99f5-1c9b3bffcb74
+    key: cow
     value: 牛
     tip: It eats grass
-  - key: frog
+  - id: 019ffb68-625b-7402-99f5-1caeb869dc97
+    key: frog
     value: 青蛙
     tip: It eats flies
-- name: Food
+- id: 019ffb6a-bfdf-73a3-ae8e-478f90430c9d
+  name: Food
   description: The book about food
   entries:
-  - key: apple
+  - id: 019ffb68-625b-7402-99f5-1cb3d2d19461
+    key: apple
     value: 苹果
     tip: The fruit that keeps doctors away
-  - key: banana
+  - id: 019ffb68-625b-7402-99f5-1cc919f27c1f
+    key: banana
     value: 香蕉
     tip: The yellow fruit

@@ -36,6 +36,9 @@ use std::path::PathBuf;
 /// ```
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Lib {
+    /// The unique identifier of the lib.
+    #[serde(default = "uuid::Uuid::now_v7")]
+    id: uuid::Uuid,
     /// The name of the lib.
     name: String,
     /// The description of the lib.
@@ -51,6 +54,7 @@ impl Lib {
     /// Create a new lib with the given name and description.
     pub fn new(name: String, description: String) -> Self {
         Self {
+            id: uuid::Uuid::now_v7(),
             name,
             description,
             books: Vec::new(),
@@ -72,6 +76,7 @@ impl Lib {
             "ron" => Self::serde_ron(content),
             _ => Err(Error::UnknownExtension),
         }?;
+        lib.write(file_path)?;
         Ok(lib)
     }
     /// Serde a lib from a TOML file.

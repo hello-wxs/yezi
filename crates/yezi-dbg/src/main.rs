@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #![doc = include_str!("../README.md")]
-
 #![allow(unused_imports)]
 use yezi_buddy as buddy;
 use yezi_cfg as cfg;
