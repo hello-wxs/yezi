@@ -50,7 +50,12 @@ pub struct Entry {
 impl Entry {
     /// Create a new entry with the given key, value, and tip.
     pub fn new(key: String, value: String, tip: String) -> Self {
-        Self { id: uuid::Uuid::now_v7(), key, value, tip }
+        Self {
+            id: uuid::Uuid::now_v7(),
+            key,
+            value,
+            tip,
+        }
     }
     /// Get a reference to the entry's key.
     pub fn get_key(&self) -> &String {
