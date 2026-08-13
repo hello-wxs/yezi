@@ -12,3 +12,5 @@ dev
 /runtime
 # For windows
 dev.exe
+# diesel lock file
+.diesel_lock
