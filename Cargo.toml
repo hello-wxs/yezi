@@ -8,6 +8,7 @@ members = [
     "crates/yezi-dev",
     "crates/yezi-buddy",
     "crates/yezi-db",
+    "crates/yezi-fsrs",
 ]
 
 [workspace.package]
@@ -25,6 +26,7 @@ yezi-data = { version = "0.1.1", path = "crates/yezi-data" }
 yezi-buddy = { version = "0.1.1", path = "crates/yezi-buddy" }
 yezi-cfg = { version = "0.1.1", path = "crates/yezi-cfg" }
 yezi-db = { version = "0.1.1", path = "crates/yezi-db" }
+yezi-fsrs = { version = "0.1.1", path = "crates/yezi-fsrs" }
 
 ratatui-core = "0.1"
 etcetera = "0.11.0"
