@@ -13,3 +13,4 @@ publish = false
 yezi-data = { workspace = true }
 yezi-buddy = { workspace = true }
 yezi-cfg = { workspace = true }
+yezi-db = { workspace = true }

@@ -6,5 +6,6 @@
 use yezi_buddy as buddy;
 use yezi_cfg as cfg;
 use yezi_data as data;
+use yezi_db as db;
 
 fn main() {}

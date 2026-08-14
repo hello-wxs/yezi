@@ -1,0 +1,14 @@
+[package]
+name = "yezi-db"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+diesel = { workspace = true }
+libsqlite3-sys = { workspace = true }
+diesel_migrations = "2.3"
