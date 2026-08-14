@@ -12,3 +12,16 @@ pub fn migrate(
 
     Ok(())
 }
+
+pub fn init_database(
+    db_path: &std::path::Path,
+) -> Result<diesel::SqliteConnection, Box<dyn std::error::Error + Send + Sync + 'static>> {
+    use diesel::Connection;
+
+    let db_url = format!("sqlite://{}", db_path.display());
+
+    let mut connection = diesel::SqliteConnection::establish(&db_url)?;
+    migrate(&mut connection)?;
+
+    Ok(connection)
+}
