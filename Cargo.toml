@@ -9,7 +9,6 @@ members = [
     "crates/yezi-buddy",
     "crates/yezi-db",
 ]
-default-members = ["crates/yezi"]
 
 [workspace.package]
 version = "0.1.1"
