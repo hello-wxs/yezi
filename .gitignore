@@ -14,3 +14,5 @@ dev
 dev.exe
 # diesel lock file
 .diesel_lock
+# database
+yezi.db
