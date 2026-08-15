@@ -1,6 +1,7 @@
 // Copyright (C) 2026 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#[derive(PartialEq)]
 pub struct Card {
     // Metadata
     pub id: uuid::Uuid,
@@ -11,6 +12,20 @@ pub struct Card {
     // Memory state
     pub stability: f32,
     pub difficulty: f32,
+}
+
+impl Eq for Card {}
+
+impl PartialOrd for Card {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for Card {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        other.due.cmp(&self.due)
+    }
 }
 
 impl Card {
@@ -69,6 +84,7 @@ impl Card {
     }
 }
 
+#[derive(PartialEq)]
 pub enum CardState {
     New = 0,
     Learning = 1,
