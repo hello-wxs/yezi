@@ -1,7 +1,7 @@
 // Copyright (C) 2026 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Card {
     // Metadata
     pub id: uuid::Uuid,
@@ -75,7 +75,7 @@ impl Card {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum CardState {
     New = 0,
     Learning = 1,
@@ -106,7 +106,7 @@ impl CardState {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct ReviewLog {
     // Metadata
     pub id: uuid::Uuid,
@@ -149,13 +149,13 @@ pub enum Rating {
     Easy = 4,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum ReviewKind {
     Auto,
     Manual,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Learn {
     pub parameters: fsrs::FSRS,
     pub cards: std::collections::BinaryHeap<Card>,
