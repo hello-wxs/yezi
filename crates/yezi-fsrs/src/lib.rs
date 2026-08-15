@@ -71,7 +71,14 @@ impl Card {
         self.difficulty = chosen_state.memory.difficulty;
         self.due = (chosen_state.interval * 86400.0) as u64 + system_time;
         self.state.transition(rating);
-        Ok(ReviewLog::new(self.id, kind, system_time, spaced_time, rating, taken_time))
+        Ok(ReviewLog::new(
+            self.id,
+            kind,
+            system_time,
+            spaced_time,
+            rating,
+            taken_time,
+        ))
     }
 }
 
