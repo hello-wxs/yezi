@@ -164,5 +164,5 @@ pub enum Error {
     #[error("system time may have gone backwards")]
     SystemTimeError(#[from] std::time::SystemTimeError),
     #[error("fsrs error")]
-    FSRSSrror(#[from] fsrs::FSRSError),
+    FSRSError(#[from] fsrs::FSRSError),
 }
