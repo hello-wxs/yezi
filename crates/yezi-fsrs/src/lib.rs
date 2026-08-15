@@ -20,6 +20,30 @@ pub enum CardState {
     Relearning = 3,
 }
 
+impl CardState {
+    pub fn transition(&mut self, rating: Rating) {
+        *self = match self {
+            CardState::New => match rating {
+                Rating::Again | Rating::Hard | Rating::Good => CardState::Learning,
+                Rating::Easy => CardState::Review,
+            },
+            CardState::Learning => match rating {
+                Rating::Again | Rating::Hard => CardState::Learning,
+                Rating::Good | Rating::Easy => CardState::Review,
+            },
+            CardState::Review => match rating {
+                Rating::Again => CardState::Relearning,
+                Rating::Hard | Rating::Good | Rating::Easy => CardState::Review,
+            },
+            CardState::Relearning => match rating {
+                Rating::Again | Rating::Hard => CardState::Relearning,
+                Rating::Good | Rating::Easy => CardState::Review,
+            },
+        };
+    }
+}
+
+
 pub struct ReviewLog {
     // Metadata
     pub id: uuid::Uuid,
