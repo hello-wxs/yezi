@@ -158,8 +158,8 @@ pub enum Rating {
 
 #[derive(Debug, Clone, Copy)]
 pub enum ReviewKind {
-    Auto,
-    Manual,
+    Auto = 0,
+    Manual = 1,
 }
 
 #[derive(Debug, Clone)]
