@@ -144,6 +144,17 @@ pub enum ReviewKind {
     Manual = 4,
 }
 
+pub struct Learn {
+    pub parameters: fsrs::FSRS,
+    pub cards: std::collections::BinaryHeap<Card>,
+}
+
+impl Learn {
+    pub fn current_learn(&self) -> Option<uuid::Uuid> {
+        self.cards.peek().map(|c| c.id)
+    }
+}
+
 type Result<T, E = Error> = std::result::Result<T, E>;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
