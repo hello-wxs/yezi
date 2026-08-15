@@ -57,28 +57,16 @@ impl Card {
             }),
         };
         let next_states = parameters.next_states(memory_state, desired_retention, days_elapsed)?;
-        match rating {
-            Rating::Again => {
-                self.stability = next_states.again.memory.stability;
-                self.difficulty = next_states.again.memory.difficulty;
-                self.due = (next_states.again.interval * 86400.0) as u64 + system_time;
-            }
-            Rating::Hard => {
-                self.stability = next_states.hard.memory.stability;
-                self.difficulty = next_states.hard.memory.difficulty;
-                self.due = (next_states.hard.interval * 86400.0) as u64 + system_time;
-            }
-            Rating::Good => {
-                self.stability = next_states.good.memory.stability;
-                self.difficulty = next_states.good.memory.difficulty;
-                self.due = (next_states.good.interval * 86400.0) as u64 + system_time;
-            }
-            Rating::Easy => {
-                self.stability = next_states.easy.memory.stability;
-                self.difficulty = next_states.easy.memory.difficulty;
-                self.due = (next_states.easy.interval * 86400.0) as u64 + system_time;
-            }
-        }
+        let chosen_state = match rating {
+            Rating::Again => &next_states.again,
+            Rating::Hard => &next_states.hard,
+            Rating::Good => &next_states.good,
+            Rating::Easy => &next_states.easy,
+        };
+        self.last_review = system_time;
+        self.stability = chosen_state.memory.stability;
+        self.difficulty = chosen_state.memory.difficulty;
+        self.due = (chosen_state.interval * 86400.0) as u64 + system_time;
         self.state.transition(rating);
         Ok(())
     }
