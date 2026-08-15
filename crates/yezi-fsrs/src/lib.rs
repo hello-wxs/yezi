@@ -13,6 +13,62 @@ pub struct Card {
     pub difficulty: f32,
 }
 
+impl Card {
+    pub fn new(id: uuid::Uuid) -> Self {
+        Self {
+            id,
+            state: CardState::New,
+            due: 0,
+            last_review: 0,
+            stability: 0.0,
+            difficulty: 0.0,
+        }
+    }
+    pub fn learn(
+        &mut self,
+        parameters: fsrs::FSRS,
+        rating: Rating,
+        desired_retention: f32,
+    ) -> Result<()> {
+        let system_time = std::time::SystemTime::now()
+            .duration_since(std::time::SystemTime::UNIX_EPOCH)?
+            .as_secs();
+        let days_elapsed = ((system_time - self.last_review) / 86400) as u32;
+        let memory_state = match self.state {
+            CardState::New => None,
+            _ => Some(fsrs::MemoryState {
+                stability: self.stability,
+                difficulty: self.difficulty,
+            }),
+        };
+        let next_states = parameters.next_states(memory_state, desired_retention, days_elapsed)?;
+        match rating {
+            Rating::Again => {
+                self.stability = next_states.again.memory.stability;
+                self.difficulty = next_states.again.memory.difficulty;
+                self.due = (next_states.again.interval * 86400.0) as u64 + system_time;
+            }
+            Rating::Hard => {
+                self.stability = next_states.hard.memory.stability;
+                self.difficulty = next_states.hard.memory.difficulty;
+                self.due = (next_states.hard.interval * 86400.0) as u64 + system_time;
+            }
+            Rating::Good => {
+                self.stability = next_states.good.memory.stability;
+                self.difficulty = next_states.good.memory.difficulty;
+                self.due = (next_states.good.interval * 86400.0) as u64 + system_time;
+            }
+            Rating::Easy => {
+                self.stability = next_states.easy.memory.stability;
+                self.difficulty = next_states.easy.memory.difficulty;
+                self.due = (next_states.easy.interval * 86400.0) as u64 + system_time;
+            }
+        }
+        self.state.transition(rating);
+        Ok(())
+    }
+}
+
 pub enum CardState {
     New = 0,
     Learning = 1,
@@ -70,4 +126,13 @@ pub enum ReviewKind {
     Relearning = 2,
     Filtered = 3,
     Manual = 4,
+}
+
+type Result<T, E = Error> = std::result::Result<T, E>;
+#[derive(Debug, thiserror::Error)]
+pub enum Error {
+    #[error("system time may have gone backwards")]
+    SystemTimeError(#[from] std::time::SystemTimeError),
+    #[error("fsrs error")]
+    FSRSSrror(#[from] fsrs::FSRSError),
 }
