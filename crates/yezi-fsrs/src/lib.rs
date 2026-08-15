@@ -44,11 +44,14 @@ impl Card {
         parameters: fsrs::FSRS,
         rating: Rating,
         desired_retention: f32,
-    ) -> Result<()> {
+        kind: ReviewKind,
+        taken_time: u64,
+    ) -> Result<ReviewLog> {
         let system_time = std::time::SystemTime::now()
             .duration_since(std::time::SystemTime::UNIX_EPOCH)?
             .as_secs();
-        let days_elapsed = ((system_time - self.last_review) / 86400) as u32;
+        let spaced_time = system_time - self.last_review;
+        let days_elapsed = (spaced_time / 86400) as u32;
         let memory_state = match self.state {
             CardState::New => None,
             _ => Some(fsrs::MemoryState {
@@ -68,7 +71,7 @@ impl Card {
         self.difficulty = chosen_state.memory.difficulty;
         self.due = (chosen_state.interval * 86400.0) as u64 + system_time;
         self.state.transition(rating);
-        Ok(())
+        Ok(ReviewLog::new(self.id, kind, system_time, spaced_time, rating, taken_time))
     }
 }
 
@@ -117,7 +120,28 @@ pub struct ReviewLog {
     pub taken_time: u64,
 }
 
-#[derive(Debug)]
+impl ReviewLog {
+    pub fn new(
+        card_id: uuid::Uuid,
+        kind: ReviewKind,
+        reviewed_at: u64,
+        spaced_time: u64,
+        rating: Rating,
+        taken_time: u64,
+    ) -> Self {
+        Self {
+            id: uuid::Uuid::now_v7(),
+            card_id,
+            kind,
+            reviewed_at,
+            spaced_time,
+            rating,
+            taken_time,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
 pub enum Rating {
     Again = 1,
     Hard = 2,
@@ -127,11 +151,8 @@ pub enum Rating {
 
 #[derive(Debug)]
 pub enum ReviewKind {
-    Learning = 0,
-    Review = 1,
-    Relearning = 2,
-    Filtered = 3,
-    Manual = 4,
+    Auto,
+    Manual,
 }
 
 #[derive(Debug)]
