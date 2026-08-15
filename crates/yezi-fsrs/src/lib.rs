@@ -6,8 +6,8 @@ pub struct Card {
     pub id: uuid::Uuid,
     pub state: CardState,
     // Time state
-    pub due: i64,
-    pub last_review: Option<i64>,
+    pub due: u64,
+    pub last_review: u64,
     // Memory state
     pub stability: f32,
     pub difficulty: f32,
@@ -26,11 +26,11 @@ pub struct ReviewLog {
     pub card_id: uuid::Uuid,
     pub kind: ReviewKind,
     // Time state
-    pub reviewed_at: i64,
-    pub spaced_time: i64,
+    pub reviewed_at: u64,
+    pub spaced_time: u64,
     // User feedback
     pub rating: Rating,
-    pub taken_time: i64,
+    pub taken_time: u64,
 }
 
 pub enum Rating {
