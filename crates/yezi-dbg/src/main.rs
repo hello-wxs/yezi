@@ -3,10 +3,5 @@
 
 #![doc = include_str!("../README.md")]
 #![allow(unused_imports)]
-use yezi_buddy as buddy;
-use yezi_cfg as cfg;
-use yezi_data as data;
-use yezi_db as db;
-use yezi_fsrs as fsrs;
 
 fn main() {}
