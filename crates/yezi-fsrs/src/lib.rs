@@ -307,18 +307,10 @@ pub struct Learn {
 
 impl Learn {
     pub fn next_time(&self) -> Option<i64> {
-        if let Some(card) = self.cards.peek() {
-            Some(card.due)
-        } else {
-            None
-        }
+        self.cards.peek().map(|card| card.due)
     }
     pub fn next_id(&self) -> Option<Ulid> {
-        if let Some(card) = self.cards.peek() {
-            Some(card.id)
-        } else {
-            None
-        }
+        self.cards.peek().map(|card| card.id)
     }
     pub fn is_dued(&self) -> Result<bool> {
         if let Some(card) = self.cards.peek() {
