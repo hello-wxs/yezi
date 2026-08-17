@@ -1,6 +1,6 @@
 -- Your SQL goes here
 create table cards (
-    id blob primary key,
+    id blob primary key not null,
     state integer not null,
     due integer not null,
     last_review integer not null,
