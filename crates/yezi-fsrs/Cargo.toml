@@ -10,7 +10,7 @@ repository.workspace = true
 
 [dependencies]
 yezi-db = { workspace = true }
-fsrs = "6.6"
+fsrs.workspace = true
 chrono = "0.4"
 ulid = { workspace = true }
 diesel = { workspace = true }
