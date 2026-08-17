@@ -137,12 +137,13 @@ impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sq
     fn from_sql(
         bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>,
     ) -> diesel::deserialize::Result<Self> {
-        match i32::from_sql(bytes)? {
+        let num = i32::from_sql(bytes)?;
+        match num {
             0 => Ok(CardState::New),
             1 => Ok(CardState::Learning),
             2 => Ok(CardState::Review),
             3 => Ok(CardState::Relearning),
-            _ => Err(anyhow::anyhow!("Invalid CardState value"))?,
+            _ => Err(anyhow::anyhow!("Invalid CardState value {num}"))?,
         }
     }
 }
@@ -185,7 +186,11 @@ impl CardState {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(
+    Debug, PartialEq, Clone, Copy, diesel::Queryable, diesel::Selectable, diesel::Insertable,
+)]
+#[diesel(table_name = yezi_db::schema::reviews)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct ReviewLog {
     // Metadata
     pub id: Ulid,
@@ -220,7 +225,8 @@ impl ReviewLog {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, diesel::FromSqlRow, diesel::AsExpression)]
+#[diesel(sql_type = diesel::sql_types::Integer)]
 pub enum Rating {
     Again = 1,
     Hard = 2,
@@ -228,10 +234,57 @@ pub enum Rating {
     Easy = 4,
 }
 
-#[derive(Debug, Clone, Copy)]
+impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for Rating {
+    fn from_sql(bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>) -> diesel::deserialize::Result<Self> {
+        let num = i32::from_sql(bytes)?;
+        match num {
+            1 => Ok(Self::Again),
+            2 => Ok(Self::Hard),
+            3 => Ok(Self::Good),
+            4 => Ok(Self::Easy),
+            _ => Err(anyhow::anyhow!("invalid rating: {num}"))?,
+        }
+    }
+}
+
+impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for Rating {
+    fn to_sql<'b>(&'b self, out: &mut diesel::serialize::Output<'b, '_, diesel::sqlite::Sqlite>) -> diesel::serialize::Result {
+        match self {
+            Self::Again => out.set_value(1),
+            Self::Hard => out.set_value(2),
+            Self::Good => out.set_value(3),
+            Self::Easy => out.set_value(4),
+        }
+        Ok(diesel::serialize::IsNull::No)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, diesel::FromSqlRow, diesel::AsExpression)]
+#[diesel(sql_type = diesel::sql_types::Integer)]
 pub enum ReviewKind {
     Auto = 0,
     Manual = 1,
+}
+
+impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for ReviewKind {
+    fn from_sql(bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>) -> diesel::deserialize::Result<Self> {
+        let num = i32::from_sql(bytes)?;
+        match num {
+            0 => Ok(ReviewKind::Auto),
+            1 => Ok(ReviewKind::Manual),
+            _ => Err(anyhow::anyhow!("invalid review kind: {num}"))?,
+        }
+    }
+}
+
+impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for ReviewKind {
+    fn to_sql<'b>(&'b self, out: &mut diesel::serialize::Output<'b, '_, diesel::sqlite::Sqlite>) -> diesel::serialize::Result {
+        match self {
+            Self::Auto => out.set_value(0),
+            Self::Manual => out.set_value(1),
+        }
+        Ok(diesel::serialize::IsNull::No)
+    }
 }
 
 #[derive(Debug, Clone)]
