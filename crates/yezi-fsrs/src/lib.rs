@@ -81,7 +81,7 @@ impl Card {
     }
     pub fn learn(
         &mut self,
-        parameters: fsrs::FSRS,
+        parameters: &fsrs::FSRS,
         rating: Rating,
         desired_retention: f32,
         kind: ReviewKind,
@@ -306,8 +306,47 @@ pub struct Learn {
 }
 
 impl Learn {
-    pub fn current_learn(&self) -> Option<Ulid> {
-        self.cards.peek().map(|c| c.id)
+    pub fn next_time(&self) -> Option<i64> {
+        if let Some(card) = self.cards.peek() {
+            Some(card.due)
+        } else {
+            None
+        }
+    }
+    pub fn next_id(&self) -> Option<Ulid> {
+        if let Some(card) = self.cards.peek() {
+            Some(card.id)
+        } else {
+            None
+        }
+    }
+    pub fn is_dued(&self) -> Result<bool> {
+        if let Some(card) = self.cards.peek() {
+            let system_time = std::time::SystemTime::now()
+                .duration_since(std::time::SystemTime::UNIX_EPOCH)?
+                .as_secs() as i64;
+            Ok(card.due <= system_time)
+        } else {
+            Ok(false)
+        }
+    }
+    pub fn learn(
+        &mut self,
+        rating: Rating,
+        desired_retention: f32,
+        kind: ReviewKind,
+        taken_time: u64,
+    ) -> Result<ReviewLog> {
+        let mut card = self.cards.pop().ok_or(Error::NoDuedCard)?;
+        let log = card.learn(
+            &self.parameters,
+            rating,
+            desired_retention,
+            kind,
+            taken_time,
+        )?;
+        self.cards.push(card);
+        Ok(log)
     }
 }
 
@@ -318,4 +357,6 @@ pub enum Error {
     SystemTimeError(#[from] std::time::SystemTimeError),
     #[error("fsrs error")]
     FSRSError(#[from] fsrs::FSRSError),
+    #[error("no dued card")]
+    NoDuedCard,
 }
