@@ -9,11 +9,11 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-yezi-db = { workspace = true }
+yezi-db.workspace = true
 fsrs.workspace = true
 chrono = "0.4"
-ulid = { workspace = true }
-diesel = { workspace = true }
-libsqlite3-sys = { workspace = true }
-thiserror = { workspace = true }
-anyhow = { workspace = true }
+ulid.workspace = true
+diesel.workspace = true
+libsqlite3-sys.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true

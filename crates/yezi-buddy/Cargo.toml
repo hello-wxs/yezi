@@ -11,6 +11,6 @@ repository.workspace = true
 [dependencies]
 rand_pcg = "0.10"
 sha2 = "0.11"
-thiserror = { workspace = true }
+thiserror.workspace = true
 rand = "0.10"
-ratatui-core = {workspace = true}
+ratatui-core.workspace = true

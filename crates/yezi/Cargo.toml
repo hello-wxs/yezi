@@ -9,8 +9,8 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-anyhow = { workspace = true }
-yezi-tui = { workspace = true }
+anyhow.workspace = true
+yezi-tui.workspace = true
 
 [features]
 default = ["install"]

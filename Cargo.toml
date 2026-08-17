@@ -38,6 +38,7 @@ ulid = { version = "3.0", features = ["serde"] }
 diesel = { version = "2.3", features = ["sqlite"] }
 libsqlite3-sys = { version = "0.38", features = ["bundled"] }
 fsrs = "6.6"
+bpaf = { version = "0.9", features = ["derive"] }
 
 [profile.release]
 opt-level = 3

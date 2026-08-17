@@ -10,8 +10,19 @@ repository.workspace = true
 publish = false
 
 [dependencies]
-yezi-data = { workspace = true }
-yezi-buddy = { workspace = true }
-yezi-cfg = { workspace = true }
-yezi-db = { workspace = true }
-yezi-fsrs = { workspace = true }
+yezi-data.workspace = true
+yezi-buddy.workspace = true
+yezi-cfg.workspace = true
+yezi-db.workspace = true
+yezi-fsrs.workspace = true
+
+ratatui-core.workspace = true
+etcetera.workspace = true
+serde.workspace = true
+ron.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+ulid.workspace = true
+diesel.workspace = true
+libsqlite3-sys.workspace = true
+fsrs.workspace = true
