@@ -37,8 +37,8 @@ use std::path::PathBuf;
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Lib {
     /// The unique identifier of the lib.
-    #[serde(default = "uuid::Uuid::now_v7")]
-    id: uuid::Uuid,
+    #[serde(default = "ulid::Ulid::generate")]
+    id: ulid::Ulid,
     /// The name of the lib.
     name: String,
     /// The description of the lib.
@@ -54,7 +54,7 @@ impl Lib {
     /// Create a new lib with the given name and description.
     pub fn new(name: String, description: String) -> Self {
         Self {
-            id: uuid::Uuid::now_v7(),
+            id: ulid::Ulid::generate(),
             name,
             description,
             books: Vec::new(),

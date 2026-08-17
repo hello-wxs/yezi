@@ -1,37 +1,37 @@
-id = "019ffb6b-3ccd-7f63-9a10-20338a4e7989"
+id = "01M074XXPCB4K7WKBBV2HGKF46"
 name = "test"
 description = "A test TOML"
 
 [[books]]
-id = "019ffb6b-3ccd-7f63-9a10-2012c008dd77"
+id = "01M074XXPC169MEQ63EMPZ6CAR"
 name = "animal"
 description = "The book about animals"
 
 [[books.entries]]
-id = "019ffb69-3dab-7240-a3a8-30ff3406aa8b"
+id = "01M074XXPCXN9TB4B4B09M1TKE"
 key = "cow"
 value = "牛"
 tip = "It eats grass"
 
 [[books.entries]]
-id = "019ffb69-3dab-7240-a3a8-310ae8b6538a"
+id = "01M074XXPCNTKJCVTX6YBD232V"
 key = "frog"
 value = "青蛙"
 tip = "It eats flies"
 
 [[books]]
-id = "019ffb6b-3ccd-7f63-9a10-2026079f3715"
+id = "01M074XXPC0QY3DWZ7S19F600V"
 name = "Food"
 description = "The book about food"
 
 [[books.entries]]
-id = "019ffb69-3dab-7240-a3a8-3115ad01fa29"
+id = "01M074XXPC4NZ0PG78MGHFGDKK"
 key = "apple"
 value = "苹果"
 tip = "The fruit that keeps doctors away"
 
 [[books.entries]]
-id = "019ffb69-3dab-7240-a3a8-31260ee3b20d"
+id = "01M074XXPCHBHESB6E3AE4AFC0"
 key = "banana"
 value = "香蕉"
 tip = "The yellow fruit"

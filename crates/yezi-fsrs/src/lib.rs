@@ -4,7 +4,7 @@
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Card {
     // Metadata
-    pub id: uuid::Uuid,
+    pub id: ulid::Ulid,
     pub state: CardState,
     // Time state
     pub due: u64,
@@ -29,7 +29,7 @@ impl Ord for Card {
 }
 
 impl Card {
-    pub fn new(id: uuid::Uuid) -> Self {
+    pub fn new(id: ulid::Ulid) -> Self {
         Self {
             id,
             state: CardState::New,
@@ -116,8 +116,8 @@ impl CardState {
 #[derive(Debug, Clone, Copy)]
 pub struct ReviewLog {
     // Metadata
-    pub id: uuid::Uuid,
-    pub card_id: uuid::Uuid,
+    pub id: ulid::Ulid,
+    pub card_id: ulid::Ulid,
     pub kind: ReviewKind,
     // Time state
     pub reviewed_at: u64,
@@ -129,7 +129,7 @@ pub struct ReviewLog {
 
 impl ReviewLog {
     pub fn new(
-        card_id: uuid::Uuid,
+        card_id: ulid::Ulid,
         kind: ReviewKind,
         reviewed_at: u64,
         spaced_time: u64,
@@ -137,7 +137,7 @@ impl ReviewLog {
         taken_time: u64,
     ) -> Self {
         Self {
-            id: uuid::Uuid::now_v7(),
+            id: ulid::Ulid::generate(),
             card_id,
             kind,
             reviewed_at,
@@ -169,7 +169,7 @@ pub struct Learn {
 }
 
 impl Learn {
-    pub fn current_learn(&self) -> Option<uuid::Uuid> {
+    pub fn current_learn(&self) -> Option<ulid::Ulid> {
         self.cards.peek().map(|c| c.id)
     }
 }
