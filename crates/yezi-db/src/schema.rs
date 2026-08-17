@@ -17,7 +17,7 @@ diesel::table! {
         id -> Binary,
         card_id -> Binary,
         kind -> Integer,
-        review_at -> BigInt,
+        reviewed_at -> BigInt,
         spaced_time -> BigInt,
         rating -> Integer,
         taken_time -> BigInt,
