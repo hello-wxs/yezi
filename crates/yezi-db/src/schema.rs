@@ -5,8 +5,8 @@ diesel::table! {
     cards (id) {
         id -> Binary,
         state -> Integer,
-        due -> Integer,
-        last_review -> Integer,
+        due -> BigInt,
+        last_review -> BigInt,
         stability -> Float,
         difficulty -> Float,
     }
