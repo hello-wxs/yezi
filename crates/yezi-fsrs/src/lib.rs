@@ -235,7 +235,9 @@ pub enum Rating {
 }
 
 impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for Rating {
-    fn from_sql(bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>) -> diesel::deserialize::Result<Self> {
+    fn from_sql(
+        bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>,
+    ) -> diesel::deserialize::Result<Self> {
         let num = i32::from_sql(bytes)?;
         match num {
             1 => Ok(Self::Again),
@@ -248,7 +250,10 @@ impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sq
 }
 
 impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for Rating {
-    fn to_sql<'b>(&'b self, out: &mut diesel::serialize::Output<'b, '_, diesel::sqlite::Sqlite>) -> diesel::serialize::Result {
+    fn to_sql<'b>(
+        &'b self,
+        out: &mut diesel::serialize::Output<'b, '_, diesel::sqlite::Sqlite>,
+    ) -> diesel::serialize::Result {
         match self {
             Self::Again => out.set_value(1),
             Self::Hard => out.set_value(2),
@@ -266,8 +271,12 @@ pub enum ReviewKind {
     Manual = 1,
 }
 
-impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for ReviewKind {
-    fn from_sql(bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>) -> diesel::deserialize::Result<Self> {
+impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite>
+    for ReviewKind
+{
+    fn from_sql(
+        bytes: <diesel::sqlite::Sqlite as diesel::backend::Backend>::RawValue<'_>,
+    ) -> diesel::deserialize::Result<Self> {
         let num = i32::from_sql(bytes)?;
         match num {
             0 => Ok(ReviewKind::Auto),
@@ -278,7 +287,10 @@ impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::sqlite::Sq
 }
 
 impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite> for ReviewKind {
-    fn to_sql<'b>(&'b self, out: &mut diesel::serialize::Output<'b, '_, diesel::sqlite::Sqlite>) -> diesel::serialize::Result {
+    fn to_sql<'b>(
+        &'b self,
+        out: &mut diesel::serialize::Output<'b, '_, diesel::sqlite::Sqlite>,
+    ) -> diesel::serialize::Result {
         match self {
             Self::Auto => out.set_value(0),
             Self::Manual => out.set_value(1),
