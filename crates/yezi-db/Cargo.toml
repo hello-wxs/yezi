@@ -9,6 +9,7 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
+thiserror.workspace = true
 diesel.workspace = true
 libsqlite3-sys.workspace = true
 diesel_migrations = "2.3"

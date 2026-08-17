@@ -299,13 +299,29 @@ impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite
     }
 }
 
-#[derive(Debug, Clone)]
 pub struct Learn {
     pub parameters: fsrs::FSRS,
     pub cards: std::collections::BinaryHeap<Card>,
+    pub connection: diesel::SqliteConnection,
+}
+
+impl std::fmt::Debug for Learn {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Learn")
+            .field("parameters", &self.parameters)
+            .field("cards", &self.cards)
+            .finish()
+    }
 }
 
 impl Learn {
+    pub fn new(parameters: fsrs::FSRS, db_path: &std::path::Path) -> Result<Self> {
+        Ok(Self {
+            parameters,
+            cards: std::collections::BinaryHeap::new(),
+            connection: yezi_db::init_database(db_path)?,
+        })
+    }
     pub fn next_time(&self) -> Option<i64> {
         self.cards.peek().map(|card| card.due)
     }
@@ -351,4 +367,6 @@ pub enum Error {
     FSRSError(#[from] fsrs::FSRSError),
     #[error("no dued card")]
     NoDuedCard,
+    #[error("db connect or migrate failed")]
+    DBConnectMigrateFailed(#[from] yezi_db::Error),
 }
