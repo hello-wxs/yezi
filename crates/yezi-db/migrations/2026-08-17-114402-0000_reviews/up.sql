@@ -8,3 +8,4 @@ create table reviews (
     rating integer not null,
     taken_time bigint not null
 );
+create index idx_reviews_card_id on reviews(card_id);
