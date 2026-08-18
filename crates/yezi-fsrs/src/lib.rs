@@ -38,7 +38,14 @@ impl diesel::serialize::ToSql<diesel::sql_types::Binary, diesel::sqlite::Sqlite>
 }
 
 #[derive(
-    Debug, PartialEq, Clone, Copy, diesel::Queryable, diesel::Selectable, diesel::Insertable, diesel::AsChangeset
+    Debug,
+    PartialEq,
+    Clone,
+    Copy,
+    diesel::Queryable,
+    diesel::Selectable,
+    diesel::Insertable,
+    diesel::AsChangeset,
 )]
 #[diesel(table_name = yezi_db::schema::cards)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -318,14 +325,11 @@ impl Learn {
     pub fn new(parameters: fsrs::FSRS, db_path: &std::path::Path) -> Result<Self> {
         use diesel::RunQueryDsl;
         use yezi_db::schema::cards::dsl::*;
-        
+
         let mut connection = yezi_db::init_database(db_path)?;
         Ok(Self {
             parameters,
-            cards: std::collections::BinaryHeap::from(
-                cards
-                    .load::<Card>(&mut connection)?
-            ),
+            cards: std::collections::BinaryHeap::from(cards.load::<Card>(&mut connection)?),
             connection,
         })
     }
