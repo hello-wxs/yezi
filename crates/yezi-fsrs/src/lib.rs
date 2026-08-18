@@ -307,9 +307,9 @@ impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::sqlite::Sqlite
 }
 
 pub struct Learn {
-    pub parameters: fsrs::FSRS,
-    pub cards: std::collections::BinaryHeap<Card>,
-    pub connection: diesel::SqliteConnection,
+    parameters: fsrs::FSRS,
+    cards: std::collections::BinaryHeap<Card>,
+    connection: diesel::SqliteConnection,
 }
 
 impl std::fmt::Debug for Learn {
@@ -332,6 +332,14 @@ impl Learn {
             cards: std::collections::BinaryHeap::from(cards.load::<Card>(&mut connection)?),
             connection,
         })
+    }
+    pub fn add_card(&mut self, ulid: ulid::Ulid) -> Result<()> {
+        use diesel::RunQueryDsl;
+        
+        let card = Card::new(Ulid(ulid));
+        self.cards.push(card);
+        diesel::insert_into(yezi_db::schema::cards::dsl::cards).values(card).execute(&mut self.connection)?;
+        Ok(())
     }
     pub fn next_time(&self) -> Option<i64> {
         self.cards.peek().map(|card| card.due)
