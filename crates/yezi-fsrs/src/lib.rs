@@ -38,7 +38,7 @@ impl diesel::serialize::ToSql<diesel::sql_types::Binary, diesel::sqlite::Sqlite>
 }
 
 #[derive(
-    Debug, PartialEq, Clone, Copy, diesel::Queryable, diesel::Selectable, diesel::Insertable,
+    Debug, PartialEq, Clone, Copy, diesel::Queryable, diesel::Selectable, diesel::Insertable, diesel::AsChangeset
 )]
 #[diesel(table_name = yezi_db::schema::cards)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -316,10 +316,17 @@ impl std::fmt::Debug for Learn {
 
 impl Learn {
     pub fn new(parameters: fsrs::FSRS, db_path: &std::path::Path) -> Result<Self> {
+        use diesel::RunQueryDsl;
+        use yezi_db::schema::cards::dsl::*;
+        
+        let mut connection = yezi_db::init_database(db_path)?;
         Ok(Self {
             parameters,
-            cards: std::collections::BinaryHeap::new(),
-            connection: yezi_db::init_database(db_path)?,
+            cards: std::collections::BinaryHeap::from(
+                cards
+                    .load::<Card>(&mut connection)?
+            ),
+            connection,
         })
     }
     pub fn next_time(&self) -> Option<i64> {
@@ -345,6 +352,9 @@ impl Learn {
         kind: ReviewKind,
         taken_time: u64,
     ) -> Result<ReviewLog> {
+        use yezi_db::schema::cards::dsl::*;
+        use diesel::{RunQueryDsl, QueryDsl};
+        
         let mut card = self.cards.pop().ok_or(Error::NoDuedCard)?;
         let log = card.learn(
             &self.parameters,
@@ -354,6 +364,9 @@ impl Learn {
             taken_time,
         )?;
         self.cards.push(card);
+        diesel::update(cards.find(card.id))
+            .set(card)
+            .execute(&mut self.connection)?;
         Ok(log)
     }
 }
@@ -369,4 +382,6 @@ pub enum Error {
     NoDuedCard,
     #[error("db connect or migrate failed")]
     DBConnectMigrateFailed(#[from] yezi_db::Error),
+    #[error("db error")]
+    DBError(#[from] diesel::result::Error),
 }
