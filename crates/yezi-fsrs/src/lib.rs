@@ -351,10 +351,9 @@ impl Learn {
         desired_retention: f32,
         kind: ReviewKind,
         taken_time: u64,
-    ) -> Result<ReviewLog> {
-        use yezi_db::schema::cards::dsl::*;
-        use diesel::{RunQueryDsl, QueryDsl};
-        
+    ) -> Result<()> {
+        use diesel::{QueryDsl, RunQueryDsl};
+
         let mut card = self.cards.pop().ok_or(Error::NoDuedCard)?;
         let log = card.learn(
             &self.parameters,
@@ -364,10 +363,13 @@ impl Learn {
             taken_time,
         )?;
         self.cards.push(card);
-        diesel::update(cards.find(card.id))
+        diesel::update(yezi_db::schema::cards::dsl::cards.find(card.id))
             .set(card)
             .execute(&mut self.connection)?;
-        Ok(log)
+        diesel::insert_into(yezi_db::schema::reviews::dsl::reviews)
+            .values(log)
+            .execute(&mut self.connection)?;
+        Ok(())
     }
 }
 
