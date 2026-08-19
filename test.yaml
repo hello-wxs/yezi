@@ -7,22 +7,26 @@ books:
   description: The book about animals
   entries:
   - id: 01M074WNE83NX26557EAWFB5G8
-    key: cow
-    value: 牛
-    tip: It eats grass
+    content:
+      key: cow
+      value: 牛
+      tip: It eats grass
   - id: 01M074WNE8B5FP21G8BZPQVVH5
-    key: frog
-    value: 青蛙
-    tip: It eats flies
+    content:
+      key: frog
+      value: 青蛙
+      tip: It eats flies
 - id: 01M074WNE8V0BHZ084BQW3WB3W
   name: Food
   description: The book about food
   entries:
   - id: 01M074WNE8BRRG3NR7SZD88A0H
-    key: apple
-    value: 苹果
-    tip: The fruit that keeps doctors away
+    content:
+      key: apple
+      value: 苹果
+      tip: The fruit that keeps doctors away
   - id: 01M074WNE806BCPTVMQKNFH7FG
-    key: banana
-    value: 香蕉
-    tip: The yellow fruit
+    content:
+      key: banana
+      value: 香蕉
+      tip: The yellow fruit
