@@ -3,8 +3,9 @@
 
 //! Provides the Book type
 
-use crate::*;
 use serde::{Deserialize, Serialize};
+
+use crate::Entry;
 
 /// Represents a book with a name, description, and entries.
 ///

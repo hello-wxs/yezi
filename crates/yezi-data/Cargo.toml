@@ -10,7 +10,7 @@ repository.workspace = true
 
 [dependencies]
 serde.workspace = true
-yaml_serde = "0.10"
+yaml_serde.workspace = true
 thiserror.workspace = true
 ulid.workspace = true
 serde-inline-default = "1.0.2"

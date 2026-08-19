@@ -52,11 +52,11 @@ fn get_location(app_state: &crate::state::AppState) -> String {
                 if app_state.current_view.is_entries() {
                     result.push_str(&format!(
                         "{} -> {}",
-                        entry.get_key().clone(),
-                        entry.get_value().clone()
+                        entry.get("key").unwrap_or_default().to_owned(),
+                        entry.get("value").unwrap_or_default().to_owned()
                     ));
                 } else {
-                    result.push_str(&entry.get_key().clone());
+                    result.push_str(&entry.get("key").unwrap_or_default().to_owned());
                 }
             }
         }

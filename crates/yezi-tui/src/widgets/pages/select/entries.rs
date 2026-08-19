@@ -3,6 +3,8 @@
 
 //! Entries page
 
+use yezi_data::Entry;
+
 /// Render the entries page
 pub(crate) fn render(
     f: &mut ratatui::Frame,
@@ -48,10 +50,16 @@ pub(crate) fn handle_key(
     }
 }
 
-fn make_lines(entries: &[yezi_data::Entry]) -> Vec<String> {
+fn make_lines(entries: &[Entry]) -> Vec<String> {
     entries
         .iter()
         .enumerate()
-        .map(|(idx, entry)| idx.to_string() + ". " + entry.get_key() + " -> " + entry.get_value())
+        .map(|(idx, entry)| {
+            idx.to_string()
+                + ". "
+                + &entry.get("key").unwrap()
+                + " -> "
+                + &entry.get("value").unwrap()
+        })
         .collect()
 }

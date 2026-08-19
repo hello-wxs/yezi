@@ -23,16 +23,19 @@ pub(crate) fn render(
     // Learn contect
     let text = ratatui::text::Text::from(vec![
         // Key
-        ratatui::text::Line::from(now_entry.get_key().clone())
+        ratatui::text::Line::from(now_entry.get("key").unwrap_or_default())
             .alignment(ratatui::layout::Alignment::Center)
             .fg(cfg.theme.fg.common),
         // Value
-        ratatui::text::Line::from(current_words(now_entry.get_value(), learn_state.now_show))
-            .alignment(ratatui::layout::Alignment::Center)
-            .fg(cfg.theme.fg.important),
+        ratatui::text::Line::from(current_words(
+            &now_entry.get("value").unwrap_or_default(),
+            learn_state.now_show,
+        ))
+        .alignment(ratatui::layout::Alignment::Center)
+        .fg(cfg.theme.fg.important),
         // Tip
         ratatui::text::Line::from(if learn_state.show_tip {
-            now_entry.get_tip().clone()
+            now_entry.get("tip").unwrap_or_default().to_owned()
         } else {
             String::from("--hidden--")
         })
@@ -94,7 +97,8 @@ pub(crate) fn handle_key(
                     < app_state
                         .current_entry()
                         .unwrap()
-                        .get_value()
+                        .get("value")
+                        .unwrap_or_default()
                         .chars()
                         .count() =>
             {
