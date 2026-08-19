@@ -8,6 +8,7 @@ members = [
     "crates/yezi-dev",
     "crates/yezi-buddy",
     "crates/yezi-db",
+    "crates/yezi-fsrs",
 ]
 
 [workspace.package]
@@ -25,6 +26,7 @@ yezi-data = { version = "0.1.1", path = "crates/yezi-data" }
 yezi-buddy = { version = "0.1.1", path = "crates/yezi-buddy" }
 yezi-cfg = { version = "0.1.1", path = "crates/yezi-cfg" }
 yezi-db = { version = "0.1.1", path = "crates/yezi-db" }
+yezi-fsrs = { version = "0.1.1", path = "crates/yezi-fsrs" }
 
 ratatui-core = "0.1"
 etcetera = "0.11.0"
@@ -32,9 +34,11 @@ serde = {version = "1.0", features = ["derive"]}
 ron = "0.12"
 thiserror = "2.0"
 anyhow = { version = "1.0", features = ["backtrace"] }
-uuid = { version = "1.24", features = ["v7", "serde"] }
+ulid = { version = "3.0", features = ["serde"] }
 diesel = { version = "2.3", features = ["sqlite"] }
 libsqlite3-sys = { version = "0.38", features = ["bundled"] }
+fsrs = "6.6"
+bpaf = { version = "0.9", features = ["derive"] }
 
 [profile.release]
 opt-level = 3

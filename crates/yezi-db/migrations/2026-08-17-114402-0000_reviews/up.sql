@@ -1,0 +1,11 @@
+-- Your SQL goes here
+create table reviews (
+    id blob primary key not null,
+    card_id blob not null,
+    kind integer not null,
+    reviewed_at bigint not null,
+    spaced_time bigint not null,
+    rating integer not null,
+    taken_time bigint not null
+);
+create index idx_reviews_card_id on reviews(card_id);

@@ -1,5 +1,5 @@
 [package]
-name = "yezi"
+name = "yezi-fsrs"
 readme = "README.md"
 version.workspace = true
 edition.workspace = true
@@ -9,11 +9,11 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
+yezi-db.workspace = true
+fsrs.workspace = true
+chrono = "0.4"
+ulid.workspace = true
+diesel.workspace = true
+libsqlite3-sys.workspace = true
+thiserror.workspace = true
 anyhow.workspace = true
-yezi-tui.workspace = true
-
-[features]
-default = ["install"]
-dev = ["yezi-tui/dev"]
-portable = ["yezi-tui/portable"]
-install = ["yezi-tui/install"]
