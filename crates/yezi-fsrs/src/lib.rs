@@ -335,10 +335,12 @@ impl Learn {
     }
     pub fn add_card(&mut self, ulid: ulid::Ulid) -> Result<()> {
         use diesel::RunQueryDsl;
-        
+
         let card = Card::new(Ulid(ulid));
         self.cards.push(card);
-        diesel::insert_into(yezi_db::schema::cards::dsl::cards).values(card).execute(&mut self.connection)?;
+        diesel::insert_into(yezi_db::schema::cards::dsl::cards)
+            .values(card)
+            .execute(&mut self.connection)?;
         Ok(())
     }
     pub fn next_time(&self) -> Option<i64> {
