@@ -5,14 +5,8 @@
 #![warn(missing_docs)]
 #![warn(clippy::missing_docs_in_private_items)]
 
+/// Note module.
+pub mod note;
+
 mod state;
-pub use state::*;
-
-mod libs;
-pub use libs::*;
-
-mod books;
-pub use books::*;
-
-mod entries;
-pub use entries::*;
+pub use state::Error;

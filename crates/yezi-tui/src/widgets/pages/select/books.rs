@@ -52,7 +52,7 @@ pub(crate) fn handle_key(
     }
 }
 
-fn make_lines(books: &[yezi_data::Book]) -> Vec<String> {
+fn make_lines(books: &[yezi_data::note::Book]) -> Vec<String> {
     books
         .iter()
         .enumerate()

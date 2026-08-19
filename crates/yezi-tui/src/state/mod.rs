@@ -1,7 +1,7 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use yezi_data::{Book, Entry, Lib};
+use yezi_data::note::{Book, Entry, Lib};
 mod input;
 mod learn;
 mod path;

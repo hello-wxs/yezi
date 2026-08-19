@@ -37,7 +37,7 @@ pub(crate) fn handle_key(
     }
 }
 
-fn make_lines(libs: &[yezi_data::Lib]) -> Vec<String> {
+fn make_lines(libs: &[yezi_data::note::Lib]) -> Vec<String> {
     libs.iter()
         .enumerate()
         .map(|(idx, lib)| idx.to_string() + ". " + lib.get_name() + " - " + lib.get_description())

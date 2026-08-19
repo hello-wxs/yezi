@@ -3,7 +3,7 @@
 
 //! Entries page
 
-use yezi_data::Entry;
+use yezi_data::note::Entry;
 
 /// Render the entries page
 pub(crate) fn render(
@@ -57,9 +57,9 @@ fn make_lines(entries: &[Entry]) -> Vec<String> {
         .map(|(idx, entry)| {
             idx.to_string()
                 + ". "
-                + &entry.get("key").unwrap()
+                + entry.get("key").unwrap()
                 + " -> "
-                + &entry.get("value").unwrap()
+                + entry.get("value").unwrap()
         })
         .collect()
 }

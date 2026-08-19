@@ -56,7 +56,7 @@ fn get_location(app_state: &crate::state::AppState) -> String {
                         entry.get("value").unwrap_or_default().to_owned()
                     ));
                 } else {
-                    result.push_str(&entry.get("key").unwrap_or_default().to_owned());
+                    result.push_str(entry.get("key").unwrap_or_default());
                 }
             }
         }

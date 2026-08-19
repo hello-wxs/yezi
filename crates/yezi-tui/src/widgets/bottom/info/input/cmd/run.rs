@@ -58,7 +58,7 @@ fn run_cmd(app_state: &mut crate::state::AppState, args: Vec<String>) -> crate::
             }
             Commands::Open { path } | Commands::O { path } => {
                 let path = std::path::PathBuf::from(path);
-                match yezi_data::Lib::read(path.clone()) {
+                match yezi_data::note::Lib::read(path.clone()) {
                     Ok(lib) => {
                         app_state.data.push(lib);
                         app_state.current_view.set_libs();

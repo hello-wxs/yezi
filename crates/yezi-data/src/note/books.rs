@@ -5,7 +5,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::Entry;
+use super::Entry;
 
 /// Represents a book with a name, description, and entries.
 ///

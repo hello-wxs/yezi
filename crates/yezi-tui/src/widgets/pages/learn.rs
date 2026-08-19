@@ -28,7 +28,7 @@ pub(crate) fn render(
             .fg(cfg.theme.fg.common),
         // Value
         ratatui::text::Line::from(current_words(
-            &now_entry.get("value").unwrap_or_default(),
+            now_entry.get("value").unwrap_or_default(),
             learn_state.now_show,
         ))
         .alignment(ratatui::layout::Alignment::Center)

@@ -3,7 +3,8 @@
 
 //! Provides the Lib type
 
-use crate::*;
+use super::{Book, Entry};
+use crate::Error;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
