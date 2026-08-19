@@ -45,9 +45,6 @@ pub struct Lib {
     description: String,
     /// The books of the lib.
     books: Vec<Book>,
-    /// Sign the file extension of the lib.
-    #[serde(skip)]
-    pub file_extension: FileExtension,
 }
 
 impl Lib {
@@ -58,49 +55,13 @@ impl Lib {
             name,
             description,
             books: Vec::new(),
-            file_extension: FileExtension::Toml,
         }
     }
     /// Read a lib from a file.
     pub fn read(file_path: PathBuf) -> Result<Self, Error> {
         let content = fs::read_to_string(&file_path).map_err(Error::ReadError)?;
-        let lib = match file_path
-            .extension()
-            .ok_or(Error::UnknownExtension)?
-            .to_str()
-            .ok_or(Error::InvalidUtf8(file_path.clone()))?
-        {
-            "toml" => Self::serde_toml(content),
-            "json" => Self::serde_json(content),
-            "yaml" => Self::serde_yaml(content),
-            "ron" => Self::serde_ron(content),
-            _ => Err(Error::UnknownExtension),
-        }?;
+        let lib: Self = yaml_serde::from_str(&content).map_err(Error::YamlParseError)?;
         lib.write(file_path)?;
-        Ok(lib)
-    }
-    /// Serde a lib from a TOML file.
-    fn serde_toml(content: String) -> Result<Self, Error> {
-        let mut lib: Self = toml::from_str(&content).map_err(Error::TomlParseError)?;
-        lib.file_extension = FileExtension::Toml;
-        Ok(lib)
-    }
-    /// Serde a lib from a JSON file.
-    fn serde_json(content: String) -> Result<Self, Error> {
-        let mut lib: Self = serde_json::from_str(&content).map_err(Error::JsonParseError)?;
-        lib.file_extension = FileExtension::Json;
-        Ok(lib)
-    }
-    /// Serde a lib from a YAML file.
-    fn serde_yaml(content: String) -> Result<Self, Error> {
-        let mut lib: Self = yaml_serde::from_str(&content).map_err(Error::YamlParseError)?;
-        lib.file_extension = FileExtension::Yaml;
-        Ok(lib)
-    }
-    /// Serde a lib from a RON file.
-    fn serde_ron(content: String) -> Result<Self, Error> {
-        let mut lib: Self = ron::from_str(&content).map_err(|e| Error::RonParseError(e.into()))?;
-        lib.file_extension = FileExtension::Ron;
         Ok(lib)
     }
 }
@@ -219,33 +180,8 @@ impl Lib {
 impl Lib {
     /// Write the lib's data to a TOML file.
     pub fn write(&self, file_path: std::path::PathBuf) -> Result<(), Error> {
-        let content = match self.file_extension {
-            FileExtension::Toml => toml::to_string(&self).map_err(Error::SerializeError)?,
-            FileExtension::Json => {
-                serde_json::to_string_pretty(&self).map_err(Error::JsonParseError)?
-            }
-            FileExtension::Yaml => yaml_serde::to_string(&self).map_err(Error::YamlParseError)?,
-            FileExtension::Ron => {
-                ron::ser::to_string_pretty(&self, ron::ser::PrettyConfig::default())
-                    .map_err(Error::RonParseError)?
-            }
-        };
-
+        let content = yaml_serde::to_string(&self).map_err(Error::YamlParseError)?;
         fs::write(&file_path, content).map_err(Error::WriteError)?;
         Ok(())
     }
-}
-
-/// The file extension of the lib.
-#[derive(Clone, Debug, Default)]
-pub enum FileExtension {
-    /// The TOML file extension.
-    Toml,
-    /// The JSON file extension.
-    Json,
-    /// The YAML file extension (default).
-    #[default]
-    Yaml,
-    /// The RON file extension.    
-    Ron,
 }

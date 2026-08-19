@@ -17,19 +17,7 @@ pub enum Error {
     /// InvalidUtf8
     #[error("invalid utf8")]
     InvalidUtf8(std::path::PathBuf),
-    /// TOML deserialize error
-    #[error("toml parse error")]
-    TomlParseError(toml::de::Error),
-    /// JSON deserialize error
-    #[error("json parse error")]
-    JsonParseError(serde_json::Error),
-    /// YAML deserialize error
-    #[error("yaml parse error")]
+    /// YAML error
+    #[error("yaml error")]
     YamlParseError(yaml_serde::Error),
-    /// TOML serialize error
-    #[error("toml serialize error")]
-    SerializeError(toml::ser::Error),
-    /// RON deserialize error
-    #[error("ron parse error")]
-    RonParseError(ron::error::Error),
 }
