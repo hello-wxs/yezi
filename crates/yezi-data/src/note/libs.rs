@@ -60,8 +60,8 @@ impl Lib {
     }
     /// Read a lib from a file.
     pub fn read(file_path: PathBuf) -> Result<Self, Error> {
-        let content = fs::read_to_string(&file_path).map_err(Error::ReadError)?;
-        let lib: Self = yaml_serde::from_str(&content).map_err(Error::YamlParseError)?;
+        let content = fs::read_to_string(&file_path)?;
+        let lib: Self = yaml_serde::from_str(&content)?;
         lib.write(file_path)?;
         Ok(lib)
     }
@@ -182,7 +182,7 @@ impl Lib {
     /// Write the lib's data to a TOML file.
     pub fn write(&self, file_path: std::path::PathBuf) -> Result<(), Error> {
         let content = yaml_serde::to_string(&self).map_err(Error::YamlParseError)?;
-        fs::write(&file_path, content).map_err(Error::WriteError)?;
+        fs::write(&file_path, content)?;
         Ok(())
     }
 }

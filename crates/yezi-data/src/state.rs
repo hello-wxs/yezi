@@ -7,17 +7,12 @@
 pub enum Error {
     /// File read error
     #[error("file read error")]
-    ReadError(std::io::Error),
-    /// File write error
-    #[error("file write error")]
-    WriteError(std::io::Error),
+    IOError(#[from] std::io::Error),
     /// Unkown file extension
     #[error("unknown file extension")]
     UnknownExtension,
-    /// InvalidUtf8
-    #[error("invalid utf8")]
-    InvalidUtf8(std::path::PathBuf),
     /// YAML error
     #[error("yaml error")]
-    YamlParseError(yaml_serde::Error),
+    YamlParseError(#[from] yaml_serde::Error),
 }
+pub(crate) type Result<T, E = Error> = std::result::Result<T, E>;
