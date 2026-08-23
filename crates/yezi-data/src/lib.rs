@@ -8,4 +8,6 @@
 pub mod note;
 
 mod state;
-pub use state::Error;
+pub use state::*;
+
+mod template;
