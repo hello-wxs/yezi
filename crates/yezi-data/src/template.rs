@@ -16,7 +16,7 @@ pub struct Templates {
 }
 
 impl Templates {
-    pub fn read(path: &str) -> crate::Result<Self> {
+    pub fn read(path: &str) -> crate::state::Result<Self> {
         let content = std::fs::read_to_string(path)?;
         Ok(yaml_serde::from_str(&content)?)
     }

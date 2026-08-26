@@ -4,9 +4,13 @@
 pub(crate) mod buddy;
 pub(crate) mod info;
 
+pub(super) enum FeedBack {
+    Info(info::FeedBack),
+}
+
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    app_state: &mut crate::state::AppState,
+    app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
@@ -28,7 +32,7 @@ pub(crate) fn render(
 }
 pub(crate) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &mut crate::state::AppState,
-) {
-    info::handle_key(key_event, app_state);
+    app_state: &crate::state::AppState,
+) -> FeedBack {
+    FeedBack::Info(info::handle_key(key_event, app_state))
 }

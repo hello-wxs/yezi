@@ -5,10 +5,18 @@
 
 mod run;
 
+pub(super) enum FeedBack {
+    None,
+    Input(char),
+    Delete,
+    Quit,
+    Run(run::FeedBack),
+}
+
 /// Render command line
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    app_state: &mut crate::state::AppState,
+    app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
 ) {
     use ratatui::style::Stylize;
@@ -34,39 +42,20 @@ pub(crate) fn render(
 /// Handle command line key events
 pub(crate) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &mut crate::state::AppState,
-) {
+    app_state: &crate::state::AppState,
+) -> FeedBack {
     use crossterm::event::{KeyCode, KeyEventKind};
 
-    if let crate::state::CurrentInput::Cmd(cmd_state) = &mut app_state.current_input {
-        // Only handle key when you press expect release
-        if key_event.kind == KeyEventKind::Press {
-            match key_event.code {
-                // Add char
-                KeyCode::Char(key) => {
-                    if let crate::state::CmdState::Input(content) = cmd_state {
-                        content.push(key);
-                    }
-                }
-                KeyCode::Backspace => {
-                    if let crate::state::CmdState::Input(content) = cmd_state {
-                        if content.is_empty() {
-                            app_state.current_input = crate::state::CurrentInput::None;
-                        } else {
-                            content.pop();
-                        }
-                    }
-                }
-                // Run command
-                KeyCode::Enter => {
-                    run::try_run_cmd(app_state);
-                }
-                // Exit command input state
-                KeyCode::Esc => {
-                    app_state.current_input = crate::state::CurrentInput::None;
-                }
-                _ => {} // Unknown key
-            }
+    // Only handle key when you press expect release
+    if key_event.kind == KeyEventKind::Press {
+        match key_event.code {
+            KeyCode::Char(key) => FeedBack::Input(key),
+            KeyCode::Backspace => FeedBack::Delete,
+            KeyCode::Enter => FeedBack::Run(run::try_run_cmd(app_state)),
+            KeyCode::Esc => FeedBack::Quit,
+            _ => FeedBack::None,
         }
+    } else {
+        FeedBack::None
     }
 }

@@ -1,16 +1,13 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use yezi_data::note::{Book, Entry, Lib};
 mod input;
 mod learn;
 mod path;
-mod selected;
 mod view;
 
 pub(crate) use input::*;
 pub(crate) use learn::*;
-pub(crate) use selected::*;
 pub(crate) use view::*;
 
 /// App state
@@ -23,9 +20,9 @@ pub(crate) struct AppState {
     /// Command state
     pub(crate) current_input: CurrentInput,
     /// Libraries list
-    pub(crate) data: Vec<Lib>,
+    pub(crate) data: yezi_data::note::Node,
     /// Selected state
-    pub(crate) selected: Sellected,
+    pub(crate) selected: Option<yezi_data::note::Node>,
     /// App path
     pub(crate) path: path::Path,
     /// Buddy state
@@ -38,28 +35,12 @@ impl AppState {
             is_running: true,
             current_view: AppView::Home,
             current_input: CurrentInput::None,
-            data: Vec::new(),
-            selected: Sellected::default(),
+            data: yezi_data::note::Node::default(),
+            selected: None,
             path: path::Path::auto()?,
             buddy: yezi_buddy::Buddy::new("hello_wxs".to_string(), None, 8),
         })
     }
-}
-
-impl AppState {
-    pub(crate) fn current_lib(&self) -> Option<&Lib> {
-        self.data.get(self.selected.lib.selected()?)
-    }
-    pub(crate) fn current_book(&self) -> Option<&Book> {
-        self.current_lib()?.get_book(self.selected.book.selected()?)
-    }
-    pub(crate) fn current_entry(&self) -> Option<&Entry> {
-        self.current_book()?
-            .get_entry(self.selected.entry.selected()?)
-    }
-}
-
-impl AppState {
     pub(crate) fn learn_state(&self) -> Option<&LearnState> {
         match self.current_view {
             AppView::Learn(ref state) => Some(state),

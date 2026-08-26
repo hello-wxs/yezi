@@ -235,7 +235,7 @@ impl Buddy {
         &self.name
     }
     /// Returns the current saying of the buddy.
-    pub fn get_saying(&mut self) -> String {
+    pub fn get_saying(&self) -> String {
         match self.idea.say {
             Some(index) => match self.idea.think {
                 Think::Main => self.say.main[index].clone(),

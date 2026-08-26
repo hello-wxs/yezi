@@ -5,7 +5,7 @@
 
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    app_state: &mut crate::state::AppState,
+    app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
@@ -39,27 +39,6 @@ pub(crate) fn render(
     );
 }
 
-fn get_location(app_state: &crate::state::AppState) -> String {
-    let mut result = "root".to_string();
-    if let Some(lib) = app_state.current_lib() {
-        result += " / ";
-        result.push_str(&lib.get_name().clone());
-        if let Some(book) = app_state.current_book() {
-            result += " / ";
-            result.push_str(&book.get_name().clone());
-            if let Some(entry) = app_state.current_entry() {
-                result += " / ";
-                if app_state.current_view.is_entries() {
-                    result.push_str(&format!(
-                        "{} -> {}",
-                        entry.get("key").unwrap_or_default().to_owned(),
-                        entry.get("value").unwrap_or_default().to_owned()
-                    ));
-                } else {
-                    result.push_str(entry.get("key").unwrap_or_default());
-                }
-            }
-        }
-    }
-    result
+fn get_location(_app_state: &crate::state::AppState) -> String {
+    "".to_string()
 }

@@ -4,9 +4,13 @@
 pub(crate) mod input;
 pub(crate) mod state;
 
+pub(super) enum FeedBack {
+    Input(input::FeedBack),
+}
+
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    app_state: &mut crate::state::AppState,
+    app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
 ) {
     let [state_area, input_area] = ratatui::layout::Layout::vertical([
@@ -21,7 +25,7 @@ pub(crate) fn render(
 
 pub(crate) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &mut crate::state::AppState,
-) {
-    input::handle_key(key_event, app_state);
+    app_state: &crate::state::AppState,
+) -> FeedBack {
+    FeedBack::Input(input::handle_key(key_event, app_state))
 }

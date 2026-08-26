@@ -3,12 +3,17 @@
 
 //! Learn page
 
+pub(super) enum Feedback {
+    None,
+}
+
 /// Render learn page
 pub(crate) fn render(
-    f: &mut ratatui::Frame,
-    app_state: &mut crate::state::AppState,
-    area: ratatui::layout::Rect,
+    _f: &mut ratatui::Frame,
+    _app_state: &crate::state::AppState,
+    _area: ratatui::layout::Rect,
 ) {
+    /*
     use ratatui::style::Stylize;
 
     let cfg = crate::get_config();
@@ -62,12 +67,15 @@ pub(crate) fn render(
     .areas(area);
     // Render
     f.render_widget(par, learn_area);
+    */
 }
 /// Handle learn page key events
 pub(crate) fn handle_key(
-    key_event: crossterm::event::KeyEvent,
-    app_state: &mut crate::state::AppState,
-) {
+    _key_event: crossterm::event::KeyEvent,
+    _app_state: &crate::state::AppState,
+) -> Feedback {
+    Feedback::None
+    /*
     use crossterm::event::{KeyCode, KeyEventKind};
     if key_event.kind == KeyEventKind::Press {
         match key_event.code {
@@ -111,6 +119,7 @@ pub(crate) fn handle_key(
             _ => {}
         }
     }
+    */
 }
 fn current_words(full: &str, len: usize) -> String {
     use unicode_width::UnicodeWidthStr;

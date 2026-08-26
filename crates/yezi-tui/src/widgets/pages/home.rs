@@ -3,10 +3,14 @@
 
 //! Home page
 
+pub(super) enum FeedBack {
+    None,
+}
+
 /// Render the home page
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    _app_state: &mut crate::state::AppState,
+    _app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
@@ -36,6 +40,7 @@ pub(crate) fn render(
 /// Handle key events for the home page
 pub(crate) fn handle_key(
     _key_event: crossterm::event::KeyEvent,
-    _app_state: &mut crate::state::AppState,
-) {
+    _app_state: &crate::state::AppState,
+) -> FeedBack {
+    FeedBack::None
 }

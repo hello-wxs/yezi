@@ -5,7 +5,7 @@ mod cmd;
 mod search;
 pub(crate) use cmd::*;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub(crate) enum CurrentInput {
     None,
     Cmd(cmd::CmdState),

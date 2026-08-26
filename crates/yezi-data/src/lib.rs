@@ -2,12 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #![doc = include_str!("../README.md")]
-#![warn(missing_docs)]
 
-/// Note module.
 pub mod note;
-
-mod state;
-pub use state::*;
-
-mod template;
+pub mod state;
+pub mod template;

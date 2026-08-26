@@ -6,9 +6,14 @@
 pub(crate) mod bottom;
 pub(crate) mod pages;
 
+pub(super) enum FeedBack {
+    Bottom(bottom::FeedBack),
+    Pages(pages::FeedBack),
+}
+
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    app_state: &mut crate::state::AppState,
+    app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
 ) {
     use ratatui::prelude::Stylize;
@@ -30,23 +35,11 @@ pub(crate) fn render(
 
 pub(crate) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &mut crate::state::AppState,
-) {
-    if let crossterm::event::KeyCode::Char(':') = key_event.code {
-        // Handle general logic
-        app_state.current_input =
-            crate::state::CurrentInput::Cmd(crate::state::CmdState::default());
+    app_state: &crate::state::AppState,
+) -> FeedBack {
+    if crate::state::CurrentInput::None == app_state.current_input {
+        FeedBack::Pages(pages::handle_key(key_event, app_state))
     } else {
-        match &app_state.current_input {
-            crate::state::CurrentInput::None => pages::handle_key(key_event, app_state),
-            crate::state::CurrentInput::Search(_) => {}
-            crate::state::CurrentInput::Cmd(cmd_state) => {
-                if let crate::state::CmdState::Input(_) = cmd_state {
-                    bottom::handle_key(key_event, app_state);
-                } else {
-                    pages::handle_key(key_event, app_state);
-                }
-            }
-        }
+        FeedBack::Bottom(bottom::handle_key(key_event, app_state))
     }
 }
