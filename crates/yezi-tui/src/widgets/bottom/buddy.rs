@@ -3,7 +3,7 @@
 
 //! Entries page
 
-pub(crate) fn render(
+pub(super) fn render(
     f: &mut ratatui::Frame,
     app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,

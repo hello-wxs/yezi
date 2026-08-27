@@ -3,7 +3,7 @@
 
 //! Learn page
 
-pub(super) enum Feedback {
+pub(crate) enum FeedBack {
     None,
 }
 
@@ -70,11 +70,11 @@ pub(crate) fn render(
     */
 }
 /// Handle learn page key events
-pub(crate) fn handle_key(
+pub(super) fn handle_key(
     _key_event: crossterm::event::KeyEvent,
     _app_state: &crate::state::AppState,
-) -> Feedback {
-    Feedback::None
+) -> FeedBack {
+    FeedBack::None
     /*
     use crossterm::event::{KeyCode, KeyEventKind};
     if key_event.kind == KeyEventKind::Press {
@@ -121,7 +121,7 @@ pub(crate) fn handle_key(
     }
     */
 }
-fn current_words(full: &str, len: usize) -> String {
+fn _current_words(full: &str, len: usize) -> String {
     use unicode_width::UnicodeWidthStr;
 
     let show_part = full.chars().take(len).collect::<String>();
@@ -129,17 +129,23 @@ fn current_words(full: &str, len: usize) -> String {
         + &"_".repeat(full.width() - full.chars().take(len).collect::<String>().width())
 }
 
-trait CheckedDivCeil {
+trait _CheckedDivCeil {
     fn checked_div_ceil(self, other: Self) -> Option<Self>
     where
         Self: Sized;
 }
 
-impl CheckedDivCeil for u16 {
+impl _CheckedDivCeil for u16 {
     fn checked_div_ceil(self, other: Self) -> Option<u16> {
         if other == 0 {
             return None;
         }
         Some(self.div_ceil(other))
+    }
+}
+
+pub(super) fn update(_app_state: &mut crate::state::AppState, feedback: FeedBack) {
+    match feedback {
+        FeedBack::None => {}
     }
 }

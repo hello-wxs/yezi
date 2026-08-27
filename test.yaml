@@ -1,11 +1,9 @@
-id: 01M074WNE8HKV3VA5TPG1JA6DW
 name: test
 description: A test YAML
-books:
-- id: 01M074WNE88SAYQNX53YKY8Q7P
-  name: animal
+children:
+- name: animal
   description: The book about animals
-  entries:
+  children:
   - id: 01M074WNE83NX26557EAWFB5G8
     content:
       key: cow
@@ -16,10 +14,9 @@ books:
       key: frog
       value: 青蛙
       tip: It eats flies
-- id: 01M074WNE8V0BHZ084BQW3WB3W
-  name: Food
+- name: Food
   description: The book about food
-  entries:
+  children:
   - id: 01M074WNE8BRRG3NR7SZD88A0H
     content:
       key: apple

@@ -6,13 +6,13 @@ use crate::state::CurrentInput;
 pub(crate) mod cmd;
 pub(crate) mod none;
 
-pub(super) enum FeedBack {
+pub(crate) enum FeedBack {
     None,
     Cmd(cmd::FeedBack),
     Search,
 }
 
-pub(crate) fn render(
+pub(super) fn render(
     f: &mut ratatui::Frame,
     app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
@@ -29,13 +29,13 @@ pub(crate) fn render(
     let inside_area = border.inner(area);
     f.render_widget(border, area);
     match app_state.current_input {
-        CurrentInput::None => {}
+        CurrentInput::None => none::render(f, inside_area),
         CurrentInput::Cmd(_) => cmd::render(f, app_state, inside_area),
         CurrentInput::Search(_) => {}
     }
 }
 
-pub(crate) fn handle_key(
+pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
     app_state: &crate::state::AppState,
 ) -> FeedBack {
@@ -43,5 +43,13 @@ pub(crate) fn handle_key(
         CurrentInput::None => FeedBack::None,
         CurrentInput::Cmd(_) => FeedBack::Cmd(cmd::handle_key(key_event, app_state)),
         CurrentInput::Search(_) => FeedBack::Search,
+    }
+}
+
+pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+    match feedback {
+        FeedBack::None => {}
+        FeedBack::Cmd(cmd_feedback) => cmd::update(app_state, cmd_feedback),
+        FeedBack::Search => {}
     }
 }

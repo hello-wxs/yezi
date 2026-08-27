@@ -5,13 +5,13 @@ pub(crate) mod home;
 pub(crate) mod learn;
 pub(crate) mod select;
 
-pub(super) enum FeedBack {
+pub(crate) enum FeedBack {
     Home(home::FeedBack),
-    Learn(learn::Feedback),
+    Learn(learn::FeedBack),
     Select(select::FeedBack),
 }
 
-pub(crate) fn render(
+pub(super) fn render(
     f: &mut ratatui::Frame,
     app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
@@ -35,7 +35,7 @@ pub(crate) fn render(
     }
 }
 
-pub(crate) fn handle_key(
+pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
     app_state: &crate::state::AppState,
 ) -> FeedBack {
@@ -43,5 +43,19 @@ pub(crate) fn handle_key(
         crate::state::AppView::Home => FeedBack::Home(home::handle_key(key_event, app_state)),
         crate::state::AppView::Select => FeedBack::Select(select::handle_key(key_event, app_state)),
         crate::state::AppView::Learn(_) => FeedBack::Learn(learn::handle_key(key_event, app_state)),
+    }
+}
+
+pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+    match feedback {
+        FeedBack::Home(home_feedback) => {
+            home::update(app_state, home_feedback);
+        }
+        FeedBack::Select(select_feedback) => {
+            select::update(app_state, select_feedback);
+        }
+        FeedBack::Learn(learn_feedback) => {
+            learn::update(app_state, learn_feedback);
+        }
     }
 }

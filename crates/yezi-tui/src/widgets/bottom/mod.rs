@@ -4,7 +4,7 @@
 pub(crate) mod buddy;
 pub(crate) mod info;
 
-pub(super) enum FeedBack {
+pub(crate) enum FeedBack {
     Info(info::FeedBack),
 }
 
@@ -30,9 +30,15 @@ pub(crate) fn render(
     buddy::render(f, app_state, buddy_area);
     info::render(f, app_state, info_area);
 }
-pub(crate) fn handle_key(
+pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
     app_state: &crate::state::AppState,
 ) -> FeedBack {
     FeedBack::Info(info::handle_key(key_event, app_state))
+}
+
+pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+    match feedback {
+        FeedBack::Info(info_feedback) => info::update(app_state, info_feedback),
+    }
 }

@@ -8,11 +8,11 @@ pub enum Node {
     Fork(Fork),
 }
 
-#[derive(Debug, serde::Serialize, serde::Deserialize, Clone)]
+#[derive(Debug, serde::Serialize, serde::Deserialize, Clone, Default)]
 pub struct Leaf {
     #[serde(default = "ulid::Ulid::generate")]
     pub id: ulid::Ulid,
-    content: yaml_serde::Value,
+    pub content: yaml_serde::Value,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize, Clone, Default)]

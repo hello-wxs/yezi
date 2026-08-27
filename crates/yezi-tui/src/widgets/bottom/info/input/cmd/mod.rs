@@ -5,7 +5,7 @@
 
 mod run;
 
-pub(super) enum FeedBack {
+pub(crate) enum FeedBack {
     None,
     Input(char),
     Delete,
@@ -14,7 +14,7 @@ pub(super) enum FeedBack {
 }
 
 /// Render command line
-pub(crate) fn render(
+pub(super) fn render(
     f: &mut ratatui::Frame,
     app_state: &crate::state::AppState,
     area: ratatui::layout::Rect,
@@ -40,7 +40,7 @@ pub(crate) fn render(
 }
 
 /// Handle command line key events
-pub(crate) fn handle_key(
+pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
     app_state: &crate::state::AppState,
 ) -> FeedBack {
@@ -57,5 +57,31 @@ pub(crate) fn handle_key(
         }
     } else {
         FeedBack::None
+    }
+}
+
+pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+    match feedback {
+        FeedBack::None => {}
+        FeedBack::Input(input) => {
+            let crate::state::CurrentInput::Cmd(crate::state::CmdState::Input(ref mut content)) =
+                app_state.current_input
+            else {
+                unreachable!()
+            };
+            content.push(input);
+        }
+        FeedBack::Delete => {
+            let crate::state::CurrentInput::Cmd(crate::state::CmdState::Input(ref mut content)) =
+                app_state.current_input
+            else {
+                unreachable!()
+            };
+            if content.pop().is_none() {
+                app_state.current_input = crate::state::CurrentInput::None;
+            }
+        }
+        FeedBack::Run(run_feedback) => run::update(app_state, run_feedback),
+        FeedBack::Quit => {}
     }
 }

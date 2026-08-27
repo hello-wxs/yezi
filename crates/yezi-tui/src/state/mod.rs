@@ -22,7 +22,7 @@ pub(crate) struct AppState {
     /// Libraries list
     pub(crate) data: yezi_data::note::Node,
     /// Selected state
-    pub(crate) selected: Option<yezi_data::note::Node>,
+    pub(crate) _selected: Option<yezi_data::note::Node>,
     /// App path
     pub(crate) path: path::Path,
     /// Buddy state
@@ -36,18 +36,18 @@ impl AppState {
             current_view: AppView::Home,
             current_input: CurrentInput::None,
             data: yezi_data::note::Node::default(),
-            selected: None,
+            _selected: None,
             path: path::Path::auto()?,
             buddy: yezi_buddy::Buddy::new("hello_wxs".to_string(), None, 8),
         })
     }
-    pub(crate) fn learn_state(&self) -> Option<&LearnState> {
+    pub(crate) fn _learn_state(&self) -> Option<&LearnState> {
         match self.current_view {
             AppView::Learn(ref state) => Some(state),
             _ => None,
         }
     }
-    pub(crate) fn learn_state_mut(&mut self) -> Option<&mut LearnState> {
+    pub(crate) fn _learn_state_mut(&mut self) -> Option<&mut LearnState> {
         match self.current_view {
             AppView::Learn(ref mut state) => Some(state),
             _ => None,

@@ -1,12 +1,12 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-pub(super) struct FeedBack {
+pub(crate) struct FeedBack {
     cmd_state: crate::state::CmdState,
     operation: Operation,
 }
 
-enum Operation {
+pub(crate) enum Operation {
     None,
     Quit,
     Open(yezi_data::note::Node),
@@ -129,6 +129,23 @@ fn run_cmd(args: Vec<String>) -> FeedBack {
                     operation: Operation::None,
                 },
             }
+        }
+    }
+}
+
+pub fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+    app_state.current_input = crate::state::CurrentInput::Cmd(feedback.cmd_state);
+    match feedback.operation {
+        Operation::None => {}
+        Operation::Quit => app_state.is_running = false,
+        Operation::Open(node) => {
+            let yezi_data::note::Node::Fork(ref mut fork) = app_state.data else {
+                unreachable!()
+            };
+            fork.children.push(node);
+        }
+        Operation::GoTo(view) => {
+            app_state.current_view = view;
         }
     }
 }

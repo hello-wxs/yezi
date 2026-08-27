@@ -21,7 +21,8 @@ pub(crate) fn start(
                 match event_result? {
                     crossterm::event::Event::Key(key_event) => {
                         dirty = true;
-                        let _ = crate::widgets::handle_key(key_event, app_state);
+                        let feedback = crate::widgets::handle_key(key_event, app_state);
+                        crate::widgets::update(app_state, feedback);
                     }
                     crossterm::event::Event::Resize(_, _) => {
                         dirty = true;
