@@ -3,6 +3,9 @@
 
 //! Home page
 
+#[derive(Debug, Default)]
+pub(crate) struct State {}
+
 pub(crate) enum FeedBack {
     None,
 }

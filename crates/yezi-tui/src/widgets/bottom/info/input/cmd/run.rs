@@ -6,11 +6,16 @@ pub(crate) struct FeedBack {
     operation: Operation,
 }
 
+pub(crate) enum View {
+    Home,
+    Select,
+}
+
 pub(crate) enum Operation {
     None,
     Quit,
     Open(yezi_data::note::Node),
-    GoTo(crate::widgets::pages::View),
+    GoTo(View),
 }
 
 /// The yezi-tui command line interface
@@ -38,8 +43,8 @@ enum Commands {
         path: String,
     },
     /// Change view
-    #[bpaf(command("view"))]
-    View {
+    #[bpaf(command("goto"))]
+    GoTo {
         /// Page to view
         #[bpaf(positional)]
         page: String,
@@ -85,14 +90,14 @@ fn run_cmd(args: Vec<String>) -> FeedBack {
                     }
                 }
             }
-            Commands::View { page } => match page.as_str() {
+            Commands::GoTo { page } => match page.as_str() {
                 "home" => FeedBack {
                     cmd_state: super::State::Success,
-                    operation: Operation::GoTo(crate::widgets::pages::View::Home),
+                    operation: Operation::GoTo(View::Home),
                 },
                 "select" => FeedBack {
                     cmd_state: super::State::Success,
-                    operation: Operation::GoTo(crate::widgets::pages::View::Select),
+                    operation: Operation::GoTo(View::Select),
                 },
                 _ => FeedBack {
                     cmd_state: super::State::Error(format!("unknown page: {page}")),
@@ -145,8 +150,9 @@ pub fn update(app_state: &mut crate::app::State, feedback: FeedBack) {
             };
             fork.children.push(node);
         }
-        Operation::GoTo(view) => {
-            app_state.current_view = view;
-        }
+        Operation::GoTo(view) => match view {
+            View::Home => app_state.current_view.set_home(),
+            View::Select => app_state.current_view.set_select(),
+        },
     }
 }

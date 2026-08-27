@@ -17,7 +17,7 @@ pub(crate) struct Path {
 impl Path {
     pub(crate) fn auto() -> anyhow::Result<Self> {
         use anyhow::{Context, Ok};
-        
+
         if cfg!(feature = "dev") {
             Ok(Self {
                 bin_path: std::env::current_exe()?

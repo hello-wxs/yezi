@@ -9,7 +9,7 @@ pub(crate) struct State {
     /// Continue running
     pub(crate) is_running: bool,
     /// Current view
-    pub(crate) current_view: crate::widgets::pages::View,
+    pub(crate) current_view: crate::widgets::pages::State,
     /// Command state
     pub(crate) current_input: crate::widgets::bottom::info::input::Input,
     /// Libraries list
@@ -26,7 +26,7 @@ impl State {
     pub(crate) fn new() -> anyhow::Result<Self> {
         Ok(Self {
             is_running: true,
-            current_view: crate::widgets::pages::View::Home,
+            current_view: crate::widgets::pages::State::default(),
             current_input: crate::widgets::bottom::info::input::Input::None,
             data: yezi_data::note::Node::default(),
             _selected: None,
@@ -35,7 +35,6 @@ impl State {
         })
     }
 }
-
 
 pub(crate) fn start(
     app_state: &mut State,
