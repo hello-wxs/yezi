@@ -1,7 +1,7 @@
 // Copyright (C) 2025 hello_wxs <hello_wxs@zohomail.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-pub(crate) fn init_log(app_state: &crate::state::AppState) -> std::io::Result<()> {
+pub(crate) fn init_log(app_state: &crate::app::State) -> std::io::Result<()> {
     std::fs::create_dir_all(&app_state.path.log_path)?;
     let log_file = std::fs::OpenOptions::new()
         .append(true)

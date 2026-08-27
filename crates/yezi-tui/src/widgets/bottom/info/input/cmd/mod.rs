@@ -43,7 +43,7 @@ pub(crate) enum FeedBack {
 /// Render command line
 pub(super) fn render(
     f: &mut ratatui::Frame,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
     area: ratatui::layout::Rect,
 ) {
     use ratatui::style::Stylize;
@@ -67,7 +67,7 @@ pub(super) fn render(
 /// Handle command line key events
 pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
 ) -> FeedBack {
     use crossterm::event::{KeyCode, KeyEventKind};
 
@@ -85,7 +85,7 @@ pub(super) fn handle_key(
     }
 }
 
-pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub(super) fn update(app_state: &mut crate::app::State, feedback: FeedBack) {
     match feedback {
         FeedBack::None => {}
         FeedBack::Input(input) => {

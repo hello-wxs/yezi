@@ -21,7 +21,7 @@ pub(crate) enum FeedBack {
 
 pub(super) fn render(
     f: &mut ratatui::Frame,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
@@ -44,7 +44,7 @@ pub(super) fn render(
 
 pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
 ) -> FeedBack {
     match app_state.current_input {
         Input::None => FeedBack::None,
@@ -53,7 +53,7 @@ pub(super) fn handle_key(
     }
 }
 
-pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub(super) fn update(app_state: &mut crate::app::State, feedback: FeedBack) {
     match feedback {
         FeedBack::None => {}
         FeedBack::Cmd(cmd_feedback) => cmd::update(app_state, cmd_feedback),

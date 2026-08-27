@@ -7,12 +7,11 @@ mod app;
 mod cfg;
 mod feat_check;
 mod logger;
-mod state;
 mod widgets;
 pub(crate) use cfg::get_config;
 
 pub fn run() -> anyhow::Result<()> {
-    let mut app_state = state::AppState::new()?;
+    let mut app_state = app::State::new()?;
     logger::init_log(&app_state)?;
     cfg::load_config(&app_state.path.config_path.join("yezi-tui.ron"));
     let mut terminal = init_terminal().inspect_err(|e| log::error!("{e}"))?;

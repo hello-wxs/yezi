@@ -36,7 +36,7 @@ impl View {
 
 pub(super) fn render(
     f: &mut ratatui::Frame,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
@@ -60,7 +60,7 @@ pub(super) fn render(
 
 pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
 ) -> FeedBack {
     match app_state.current_view {
         View::Home => FeedBack::Home(home::handle_key(key_event, app_state)),
@@ -69,7 +69,7 @@ pub(super) fn handle_key(
     }
 }
 
-pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub(super) fn update(app_state: &mut crate::app::State, feedback: FeedBack) {
     match feedback {
         FeedBack::Home(home_feedback) => {
             home::update(app_state, home_feedback);

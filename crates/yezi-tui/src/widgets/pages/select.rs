@@ -7,19 +7,19 @@ pub(crate) enum FeedBack {
 
 pub(super) fn render(
     _f: &mut ratatui::Frame,
-    _app_state: &crate::state::AppState,
+    _app_state: &crate::app::State,
     _area: ratatui::layout::Rect,
 ) {
 }
 
 pub(super) fn handle_key(
     _key_event: crossterm::event::KeyEvent,
-    _app_state: &crate::state::AppState,
+    _app_state: &crate::app::State,
 ) -> FeedBack {
     FeedBack::None
 }
 
-pub(super) fn update(_app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub(super) fn update(_app_state: &mut crate::app::State, feedback: FeedBack) {
     match feedback {
         FeedBack::None => {}
     }

@@ -47,7 +47,7 @@ enum Commands {
 }
 
 /// Run command
-pub(crate) fn try_run_cmd(app_state: &crate::state::AppState) -> FeedBack {
+pub(crate) fn try_run_cmd(app_state: &crate::app::State) -> FeedBack {
     if let crate::widgets::bottom::info::input::Input::Cmd(ref cmd_state) = app_state.current_input
     {
         match shell_words::split(cmd_state.get_input().unwrap()) {
@@ -134,7 +134,7 @@ fn run_cmd(args: Vec<String>) -> FeedBack {
     }
 }
 
-pub fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub fn update(app_state: &mut crate::app::State, feedback: FeedBack) {
     app_state.current_input = crate::widgets::bottom::info::input::Input::Cmd(feedback.cmd_state);
     match feedback.operation {
         Operation::None => {}

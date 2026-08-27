@@ -18,7 +18,7 @@ pub(crate) struct State {
 /// Render learn page
 pub(crate) fn render(
     _f: &mut ratatui::Frame,
-    _app_state: &crate::state::AppState,
+    _app_state: &crate::app::State,
     _area: ratatui::layout::Rect,
 ) {
     /*
@@ -80,7 +80,7 @@ pub(crate) fn render(
 /// Handle learn page key events
 pub(super) fn handle_key(
     _key_event: crossterm::event::KeyEvent,
-    _app_state: &crate::state::AppState,
+    _app_state: &crate::app::State,
 ) -> FeedBack {
     FeedBack::None
     /*
@@ -152,7 +152,7 @@ impl _CheckedDivCeil for u16 {
     }
 }
 
-pub(super) fn update(_app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub(super) fn update(_app_state: &mut crate::app::State, feedback: FeedBack) {
     match feedback {
         FeedBack::None => {}
     }

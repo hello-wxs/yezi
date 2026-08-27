@@ -6,8 +6,6 @@
 pub(crate) mod bottom;
 pub(crate) mod pages;
 
-use anyhow::{Context, Ok};
-
 #[derive(Debug)]
 pub(crate) struct Path {
     #[allow(dead_code)]
@@ -18,6 +16,8 @@ pub(crate) struct Path {
 
 impl Path {
     pub(crate) fn auto() -> anyhow::Result<Self> {
+        use anyhow::{Context, Ok};
+        
         if cfg!(feature = "dev") {
             Ok(Self {
                 bin_path: std::env::current_exe()?
@@ -69,7 +69,7 @@ pub(super) enum FeedBack {
 
 pub(super) fn render(
     f: &mut ratatui::Frame,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
     area: ratatui::layout::Rect,
 ) {
     use ratatui::prelude::Stylize;
@@ -91,7 +91,7 @@ pub(super) fn render(
 
 pub(super) fn handle_key(
     key_event: crossterm::event::KeyEvent,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
 ) -> FeedBack {
     if key_event.kind == crossterm::event::KeyEventKind::Press
         && key_event.code == crossterm::event::KeyCode::Char(':')
@@ -105,7 +105,7 @@ pub(super) fn handle_key(
     }
 }
 
-pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
+pub(super) fn update(app_state: &mut crate::app::State, feedback: FeedBack) {
     match feedback {
         FeedBack::OpenCmd => {
             app_state.current_input = crate::widgets::bottom::info::input::Input::Cmd(

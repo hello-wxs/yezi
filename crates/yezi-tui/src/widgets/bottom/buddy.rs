@@ -5,7 +5,7 @@
 
 pub(super) fn render(
     f: &mut ratatui::Frame,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
     area: ratatui::layout::Rect,
 ) {
     use ratatui::style::Stylize;

@@ -5,7 +5,7 @@
 
 pub(crate) fn render(
     f: &mut ratatui::Frame,
-    app_state: &crate::state::AppState,
+    app_state: &crate::app::State,
     area: ratatui::layout::Rect,
 ) {
     let cfg = crate::get_config();
@@ -39,6 +39,6 @@ pub(crate) fn render(
     );
 }
 
-fn get_location(_app_state: &crate::state::AppState) -> String {
+fn get_location(_app_state: &crate::app::State) -> String {
     "".to_string()
 }
