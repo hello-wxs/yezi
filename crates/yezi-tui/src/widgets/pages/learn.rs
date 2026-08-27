@@ -7,6 +7,14 @@ pub(crate) enum FeedBack {
     None,
 }
 
+#[derive(Debug, Default, PartialEq)]
+pub(crate) struct State {
+    /// Currently showing entry
+    pub(crate) now_show: usize,
+    /// Whether to show tip
+    pub(crate) show_tip: bool,
+}
+
 /// Render learn page
 pub(crate) fn render(
     _f: &mut ratatui::Frame,

@@ -6,6 +6,61 @@
 pub(crate) mod bottom;
 pub(crate) mod pages;
 
+use anyhow::{Context, Ok};
+
+#[derive(Debug)]
+pub(crate) struct Path {
+    #[allow(dead_code)]
+    pub(crate) bin_path: std::path::PathBuf,
+    pub(crate) log_path: std::path::PathBuf,
+    pub(crate) config_path: std::path::PathBuf,
+}
+
+impl Path {
+    pub(crate) fn auto() -> anyhow::Result<Self> {
+        if cfg!(feature = "dev") {
+            Ok(Self {
+                bin_path: std::env::current_exe()?
+                    .parent()
+                    .context("Path not found")?
+                    .into(),
+                log_path: "./runtime/log".into(),
+                config_path: "./runtime/config".into(),
+            })
+        } else if cfg!(feature = "portable") {
+            let exe_path = std::env::current_exe().context("Failed to get exe path")?;
+            let root_path = exe_path
+                .parent()
+                .and_then(|p| p.parent())
+                .and_then(|p| p.parent())
+                .context("Path not found")?;
+
+            Ok(Self {
+                bin_path: root_path.join("bin"),
+                log_path: root_path.join("log"),
+                config_path: root_path.join("config"),
+            })
+        } else {
+            use etcetera::AppStrategy;
+            let args = etcetera::app_strategy::AppStrategyArgs {
+                top_level_domain: "local".to_string(),
+                author: "hello_wxs".to_string(),
+                app_name: "yezi".to_string(),
+            };
+            let strategy = etcetera::app_strategy::Xdg::new(args)?;
+            Ok(Self {
+                bin_path: std::env::current_exe()
+                    .context("Failed to get exe path")?
+                    .parent()
+                    .context("Path not found")?
+                    .into(),
+                log_path: strategy.state_dir().unwrap(),
+                config_path: strategy.config_dir(),
+            })
+        }
+    }
+}
+
 pub(super) enum FeedBack {
     OpenCmd,
     Bottom(bottom::FeedBack),
@@ -43,7 +98,7 @@ pub(super) fn handle_key(
     {
         return FeedBack::OpenCmd;
     }
-    if crate::state::CurrentInput::None == app_state.current_input {
+    if crate::widgets::bottom::info::input::Input::None == app_state.current_input {
         FeedBack::Pages(pages::handle_key(key_event, app_state))
     } else {
         FeedBack::Bottom(bottom::handle_key(key_event, app_state))
@@ -53,8 +108,9 @@ pub(super) fn handle_key(
 pub(super) fn update(app_state: &mut crate::state::AppState, feedback: FeedBack) {
     match feedback {
         FeedBack::OpenCmd => {
-            app_state.current_input =
-                crate::state::CurrentInput::Cmd(crate::state::CmdState::Input(String::new()));
+            app_state.current_input = crate::widgets::bottom::info::input::Input::Cmd(
+                crate::widgets::bottom::info::input::cmd::State::Input(String::new()),
+            );
         }
         FeedBack::Bottom(bottom_feedback) => {
             bottom::update(app_state, bottom_feedback);

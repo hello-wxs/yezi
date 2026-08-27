@@ -11,6 +11,29 @@ pub(crate) enum FeedBack {
     Select(select::FeedBack),
 }
 
+#[derive(Debug)]
+pub(crate) enum View {
+    /// Home page
+    Home,
+    /// Select page
+    Select,
+    /// Learn page
+    Learn(crate::widgets::pages::learn::State),
+}
+
+#[allow(dead_code)]
+impl View {
+    pub(crate) fn set_home(&mut self) {
+        *self = View::Home;
+    }
+    pub(crate) fn set_select(&mut self) {
+        *self = View::Select;
+    }
+    pub(crate) fn set_learn(&mut self) {
+        *self = View::Learn(crate::widgets::pages::learn::State::default());
+    }
+}
+
 pub(super) fn render(
     f: &mut ratatui::Frame,
     app_state: &crate::state::AppState,
@@ -19,9 +42,9 @@ pub(super) fn render(
     let cfg = crate::get_config();
     let border = ratatui::widgets::Block::default()
         .title(match app_state.current_view {
-            crate::state::AppView::Home => "home",
-            crate::state::AppView::Select => "select",
-            crate::state::AppView::Learn(_) => "learn",
+            View::Home => "home",
+            View::Select => "select",
+            View::Learn(_) => "learn",
         })
         .borders(ratatui::widgets::Borders::ALL)
         .border_type(ratatui::widgets::BorderType::Rounded)
@@ -29,9 +52,9 @@ pub(super) fn render(
     f.render_widget(&border, area);
     let inner_area = border.inner(area);
     match app_state.current_view {
-        crate::state::AppView::Home => home::render(f, app_state, inner_area),
-        crate::state::AppView::Select => select::render(f, app_state, inner_area),
-        crate::state::AppView::Learn(_) => learn::render(f, app_state, inner_area),
+        View::Home => home::render(f, app_state, inner_area),
+        View::Select => select::render(f, app_state, inner_area),
+        View::Learn(_) => learn::render(f, app_state, inner_area),
     }
 }
 
@@ -40,9 +63,9 @@ pub(super) fn handle_key(
     app_state: &crate::state::AppState,
 ) -> FeedBack {
     match app_state.current_view {
-        crate::state::AppView::Home => FeedBack::Home(home::handle_key(key_event, app_state)),
-        crate::state::AppView::Select => FeedBack::Select(select::handle_key(key_event, app_state)),
-        crate::state::AppView::Learn(_) => FeedBack::Learn(learn::handle_key(key_event, app_state)),
+        View::Home => FeedBack::Home(home::handle_key(key_event, app_state)),
+        View::Select => FeedBack::Select(select::handle_key(key_event, app_state)),
+        View::Learn(_) => FeedBack::Learn(learn::handle_key(key_event, app_state)),
     }
 }
 
